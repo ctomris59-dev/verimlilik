@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verimlilik Skoru | Çorlu TSO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF9F6;
+    --panel:#FFFFFF;
+    --panel-2:#F0ECE4;
+    --line:#E1DAD0;
+    --ink:#14181C;
+    --ink-dim:#6B7280;
+    --amber:#B45309;
+    --amber-dim:#E8C79A;
+    --teal:#0F766E;
+    --red:#B91C1C;
+    --green:#15803D;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;}
+  body{padding:0 0 60px;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px;}
+
+  /* HERO */
+  .hero{border-bottom:1px solid var(--line);padding:38px 0 30px;position:relative;overflow:hidden;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--amber);text-transform:uppercase;}
+  h1{font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:700;font-size:40px;line-height:1.05;margin:10px 0 12px;letter-spacing:-.01em;}
+  .sub{color:var(--ink-dim);font-size:15px;max-width:560px;line-height:1.55;}
+  .kpi-row{display:flex;gap:22px;margin-top:24px;flex-wrap:wrap;}
+  .kpi{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);border-left:2px solid var(--amber-dim);padding-left:10px;}
+  .kpi b{display:block;color:var(--ink);font-size:15px;font-weight:600;}
+
+  /* KVKK GATE */
+  .gate{margin-top:26px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
+  .gate p{font-size:13.5px;color:var(--ink-dim);line-height:1.6;margin:0 0 14px;}
+  .gate label{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink);cursor:pointer;}
+  .gate input[type=checkbox]{margin-top:2px;accent-color:var(--amber);width:16px;height:16px;flex:none;}
+  .btn{margin-top:16px;background:var(--amber);color:#FFFFFF;border:none;font-weight:600;font-size:14px;padding:11px 20px;border-radius:7px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;transition:transform .12s ease, background .12s ease;}
+  .btn:hover{background:#92400E;}
+  .btn:disabled{background:#E2E8F0;color:#94A3B8;cursor:not-allowed;}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink);}
+  .btn.ghost:hover{border-color:var(--amber);color:var(--amber);}
+
+  /* PROGRESS */
+  .progress-shell{position:sticky;top:0;background:var(--bg);z-index:5;padding:10px 0 6px;border-bottom:1px solid var(--line);}
+  .progress-track{height:3px;background:var(--panel-2);border-radius:2px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--amber-dim),var(--amber));width:0%;transition:width .3s ease;}
+  .progress-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);margin-top:6px;display:flex;justify-content:space-between;}
+
+  /* CATEGORY SECTIONS */
+  .cat{margin-top:30px;padding-top:6px;}
+  .cat-head{display:flex;align-items:baseline;gap:10px;margin-bottom:4px;}
+  .cat-num{font-family:'IBM Plex Mono',monospace;color:var(--amber);font-size:13px;}
+  .cat-title{font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:21px;}
+  .cat-desc{color:var(--ink-dim);font-size:13px;margin:2px 0 16px;}
+  .q{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:10px;}
+  .q-text{font-size:14px;line-height:1.5;margin-bottom:12px;}
+  .scale{display:flex;gap:6px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:100px;}
+  .opt input{display:none;}
+  .opt span{display:block;text-align:center;font-size:11.5px;color:var(--ink-dim);border:1px solid var(--line);border-radius:6px;padding:9px 6px;cursor:pointer;transition:all .12s ease;line-height:1.3;}
+  .opt input:checked + span{background:var(--amber);color:#FFFFFF;border-color:var(--amber);font-weight:600;}
+
+  /* RESULTS */
+  #results{display:none;margin-top:40px;border-top:1px solid var(--line);padding-top:34px;}
+  .score-block{display:flex;gap:34px;align-items:center;flex-wrap:wrap;}
+  .gauge-wrap{position:relative;width:220px;flex:none;}
+  .score-num{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:52px;position:absolute;top:58%;left:50%;transform:translate(-50%,-50%);}
+  .score-max{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);position:absolute;top:78%;left:50%;transform:translateX(-50%);}
+  .tier{font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:700;font-size:24px;margin:0 0 6px;}
+  .tier-desc{color:var(--ink-dim);font-size:13.5px;max-width:420px;line-height:1.55;}
+
+  .radar-block{margin-top:34px;display:flex;gap:30px;flex-wrap:wrap;align-items:flex-start;}
+  .radar-svg{flex:none;}
+  .bars{flex:1;min-width:240px;display:flex;flex-direction:column;gap:12px;}
+  .bar-row{}
+  .bar-label{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px;}
+  .bar-label b{font-family:'IBM Plex Mono',monospace;color:var(--ink);}
+  .bar-track{height:7px;background:var(--panel-2);border-radius:4px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:4px;background:var(--teal);}
+
+  .findings{margin-top:38px;}
+  .findings h3{font-family:'IBM Plex Sans Condensed',sans-serif;font-size:19px;font-weight:600;margin-bottom:14px;}
+  .finding{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:8px;padding:14px 16px;margin-bottom:10px;}
+  .finding.warn{border-left-color:var(--red);}
+  .finding.good{border-left-color:var(--green);}
+  .finding .f-head{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:4px;}
+  .finding .f-head .pct{font-family:'IBM Plex Mono',monospace;font-weight:600;}
+  .finding p{margin:0;font-size:12.5px;color:var(--ink-dim);line-height:1.55;}
+
+  .actions{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap;}
+
+  /* METHODOLOGY */
+  .method{margin-top:46px;border-top:1px solid var(--line);padding-top:26px;}
+  .method h3{font-family:'IBM Plex Sans Condensed',sans-serif;font-size:18px;font-weight:600;margin-bottom:6px;}
+  .method p.lead{color:var(--ink-dim);font-size:13px;margin:0 0 16px;line-height:1.6;}
+  .method-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:640px){.method-grid{grid-template-columns:1fr;}}
+  .method-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:13px 15px;}
+  .method-card .m-title{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--amber);margin-bottom:5px;}
+  .method-card .m-body{font-size:12.5px;color:var(--ink-dim);line-height:1.5;}
+  .sources{margin-top:18px;font-size:11.5px;color:var(--ink-dim);line-height:1.8;}
+  .sources b{color:var(--ink);}
+
+  .kvkk-foot{margin-top:30px;font-size:11px;color:var(--ink-dim);border-top:1px solid var(--line);padding-top:16px;line-height:1.6;}
+  .brand-foot{margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow">Üye Dönüşüm Araç Seti · Çorlu TSO</div>
+    <h1>Verimlilik Skoru</h1>
+    <p class="sub">İş gücü, süreç, üretim, stok, enerji ve zaman boyutlarındaki kayıpları ölçen kendi kendine değerlendirme aracı. 24 soruluk test, işletmenizin verimlilik olgunluk seviyesini ve öncelikli iyileştirme alanlarını ortaya koyar.</p>
+    <div class="kpi-row">
+      <div class="kpi">SÜRE<b>~8 dk</b></div>
+      <div class="kpi">BOYUT<b>6 kategori</b></div>
+      <div class="kpi">SORU<b>24 madde</b></div>
+      <div class="kpi">ÇIKTI<b>Skor + Öncelik Raporu</b></div>
+    </div>
+
+    <div class="gate" id="gate">
+      <p>Bu araç, işletmenizin operasyonel verimlilik seviyesini kendi kendine değerlendirmenize yardımcı olur. Verdiğiniz cevaplar yalnızca skor hesaplama amacıyla, bu oturumda tarayıcınızda işlenir; Çorlu TSO ile ilişkilendirilmiş bir kayıt oluşturulmaz. KVKK kapsamında kişisel veri toplanmamaktadır — sorular yalnızca işletme süreçlerine ilişkindir.</p>
+      <label><input type="checkbox" id="consent"> Bilgilendirmeyi okudum, teste başlamak istiyorum.</label>
+      <button class="btn" id="startBtn" disabled>Teste Başla →</button>
+    </div>
+  </div>
+
+  <div id="progressShell" class="progress-shell" style="display:none;">
+    <div class="wrap" style="padding:0;">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label"><span id="progressText">0 / 24 yanıtlandı</span><span id="progressCat">İş Gücü Kayıpları</span></div>
+    </div>
+  </div>
+
+  <form id="form" style="display:none;"></form>
+
+  <div style="display:none;text-align:center;margin-top:10px;" id="submitWrap">
+    <button class="btn" id="calcBtn">Skoru Hesapla</button>
+  </div>
+
+  <div id="results">
+    <div class="score-block">
+      <div class="gauge-wrap">
+        <svg id="gaugeSvg" width="220" height="140" viewBox="0 0 220 140"></svg>
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="score-max">/ 100</div>
+      </div>
+      <div>
+        <div class="tier" id="tierTitle">—</div>
+        <div class="tier-desc" id="tierDesc">—</div>
+      </div>
+    </div>
+
+    <div class="radar-block">
+      <svg class="radar-svg" id="radarSvg" width="280" height="280" viewBox="0 0 280 280"></svg>
+      <div class="bars" id="bars"></div>
+    </div>
+
+    <div class="findings">
+      <h3>Öncelikli Bulgular</h3>
+      <div id="findingsList"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn ghost" id="retakeBtn">Testi Yeniden Al</button>
+    </div>
+  </div>
+
+  <div class="method">
+    <h3>Metodoloji</h3>
+    <p class="lead">Her kategori, ilgili alanda yaygın kabul gören verimlilik çerçevelerinden uyarlanan maddelerle 1–5 Likert ölçeğinde değerlendirilir. Kategori skoru madde ortalamasının yüzdeye çevrilmesiyle, genel Verimlilik Skoru ise altı kategorinin ağırlıklı ortalamasıyla hesaplanır.</p>
+    <div class="method-grid">
+      <div class="method-card"><div class="m-title">İŞ GÜCÜ KAYIPLARI</div><div class="m-body">Devamsızlık, fazla mesai bağımlılığı, yetkinlik açığı ve görev eşleşme kaybı; iş gücü verimliliği literatüründeki kayıp sınıflandırmalarına dayanır.</div></div>
+      <div class="method-card"><div class="m-title">SÜREÇ KAYIPLARI</div><div class="m-body">Süreç Döngü Verimliliği (PCE) mantığıyla; katma değersiz bekleme, onay ve yeniden işleme adımlarını ölçer (Yalın Üretim / Lean).</div></div>
+      <div class="method-card"><div class="m-title">ÜRETİM KAYIPLARI</div><div class="m-body">TPM'in Toplam Ekipman Etkinliği (OEE) yaklaşımına dayanır: kullanılabilirlik, performans ve kalite kayıplarını ayrı ayrı sorgular.</div></div>
+      <div class="method-card"><div class="m-title">STOK KAYIPLARI</div><div class="m-body">Stok devir hızı, stok tükenmesi (stockout) ve fazla/atıl stok oranlarını kapsayan tedarik zinciri KPI setine (APICS/ASCM) dayanır.</div></div>
+      <div class="method-card"><div class="m-title">ENERJİ KAYIPLARI</div><div class="m-body">ISO 50001 Enerji Yönetim Sistemi'ndeki Enerji Performans Göstergesi (EnPI) mantığıyla; birim üretim başına enerji yoğunluğunu ve kaçakları sorgular.</div></div>
+      <div class="method-card"><div class="m-title">ZAMAN KAYIPLARI</div><div class="m-body">Takt süresine uyum ve SMED (hızlı kalıp değişimi) prensipleriyle; hazırlık, bekleme ve teslim süresi sapmalarını ölçer.</div></div>
+    </div>
+    <div class="sources">
+      <b>Referans alınan yaklaşımlar:</b> Toyota Üretim Sistemi / 7 İsraf (Muda) sınıflandırması · Nakajima, TPM ve OEE metodolojisi · Lean Six Sigma Süreç Döngü Verimliliği · ISO 50001 Enerji Yönetim Sistemi · APICS/ASCM Tedarik Zinciri KPI çerçevesi · SMED (Single-Minute Exchange of Die).<br>
+      Bu araç bir öz-değerlendirme (self-assessment) enstrümanıdır; sonuçlar denetim veya sertifikasyon niteliği taşımaz, işletme içi öncelik belirleme amacıyla tasarlanmıştır.
+    </div>
+  </div>
+
+  <div class="kvkk-foot">
+    Bu araçta girilen yanıtlar kişisel veri içermez ve yalnızca skor hesaplama amacıyla tarayıcı oturumunda işlenir; sunucuya kaydedilmez. Çorlu Ticaret ve Sanayi Odası'nın "Üye Dönüşüm" dijital araç setinin bir parçasıdır.
+    <div class="brand-foot"><span>Çorlu TSO · Üye Dönüşüm</span><span>Verimlilik Skoru v1.0</span></div>
+  </div>
+
+</div>
+
+<script>
+const CATEGORIES = [
+  {
+    key:"isgucu", title:"İş Gücü Kayıpları",
+    desc:"Devamsızlık, fazla mesai, yetkinlik ve görev eşleşme kayıplarını değerlendirir.",
+    questions:[
+      "Çalışanların planlanmamış devamsızlık oranı düşük seviyededir.",
+      "Fazla mesai, sürekli/yapısal bir ihtiyaç değil, istisnai bir durumdur.",
+      "Çalışanların becerileri görev tanımlarıyla büyük ölçüde örtüşmektedir.",
+      "Yeni işe alım / oryantasyon süreci, verimliliğe ulaşma süresini kısaltacak şekilde kurgulanmıştır."
+    ]
+  },
+  {
+    key:"surec", title:"Süreç Kayıpları",
+    desc:"Katma değersiz bekleme, onay ve yeniden işleme adımlarını ölçer.",
+    questions:[
+      "Temel iş süreçleri (sipariş, üretim, sevkiyat vb.) yazılı olarak tanımlıdır.",
+      "Süreçlerde onay bekleme süreleri, toplam süreç süresine kıyasla azdır.",
+      "Hatalı iş / yeniden işleme (rework) oranı düşüktür.",
+      "Departmanlar arası bilgi aktarımında tekrar veri girişi veya kayıp yaşanmaz."
+    ]
+  },
+  {
+    key:"uretim", title:"Üretim Kayıpları",
+    desc:"Ekipman kullanılabilirliği, performans ve kalite kayıplarını sorgular (OEE mantığı).",
+    questions:[
+      "Ekipman arıza/duruş süreleri planlı üretim süresine kıyasla düşüktür.",
+      "Üretim hattı, teorik kapasitesine yakın bir hızda çalışır.",
+      "Hurda / ıskarta oranı kabul edilebilir sınırların altındadır.",
+      "Ekipman bakımı planlı (önleyici) bakım esasına göre yürütülür."
+    ]
+  },
+  {
+    key:"stok", title:"Stok Kayıpları",
+    desc:"Stok devir hızı, stok tükenmesi ve atıl stok oranlarını kapsar.",
+    questions:[
+      "Stok devir hızı sektör ortalamasının altında değildir.",
+      "Hammadde/ürün stok tükenmesi (stockout) nedeniyle üretim/satış kaybı nadirdir.",
+      "Atıl veya yavaş hareket eden stok oranı düşüktür.",
+      "Stok seviyeleri talep tahminine dayalı olarak, tahmine değil veriye göre belirlenir."
+    ]
+  },
+  {
+    key:"enerji", title:"Enerji Kayıpları",
+    desc:"Birim üretim başına enerji yoğunluğu ve kaçakları sorgular (ISO 50001 EnPI mantığı).",
+    questions:[
+      "Birim ürün başına enerji tüketimi düzenli olarak izlenir.",
+      "Basınçlı hava, buhar veya elektrik kaçakları düzenli olarak tespit edilip giderilir.",
+      "Enerji yoğun ekipmanlar, verimlilik sınıfı gözetilerek seçilir/yenilenir.",
+      "Vardiya dışı / boşta çalışma kaynaklı enerji israfı düşük seviyededir."
+    ]
+  },
+  {
+    key:"zaman", title:"Zaman Kayıpları",
+    desc:"Takt süresine uyum, hazırlık ve teslim süresi sapmalarını ölçer (SMED mantığı).",
+    questions:[
+      "Ürün/parti değişimi (setup/changeover) süreleri kısa ve standartlaştırılmıştır.",
+      "Planlanan teslim süreleri (lead time) genellikle aşılmaz.",
+      "Toplantı ve koordinasyon süreleri, alınan kararlarla orantılıdır.",
+      "Çalışanlar günlük işlerinde 'boşta bekleme' süresi yaşamaz."
+    ]
+  }
+];
+
+const LIKERT = [
+  {v:1,label:"Kesinlikle Katılmıyorum"},
+  {v:2,label:"Katılmıyorum"},
+  {v:3,label:"Kararsızım"},
+  {v:4,label:"Katılıyorum"},
+  {v:5,label:"Kesinlikle Katılıyorum"}
+];
+
+const WEIGHTS = {isgucu:1, surec:1, uretim:1.15, stok:0.95, enerji:0.95, zaman:1};
+
+const form = document.getElementById('form');
+let totalQ = 0;
+CATEGORIES.forEach((cat, ci)=>{
+  const section = document.createElement('div');
+  section.className='cat';
+  section.innerHTML = `<div class="cat-head"><span class="cat-num">0${ci+1}</span><span class="cat-title">${cat.title}</span></div><div class="cat-desc">${cat.desc}</div>`;
+  cat.questions.forEach((q, qi)=>{
+    totalQ++;
+    const name = `${cat.key}_${qi}`;
+    const qDiv = document.createElement('div');
+    qDiv.className='q';
+    qDiv.innerHTML = `<div class="q-text">${q}</div><div class="scale">${LIKERT.map(l=>`
+      <label class="opt"><input type="radio" name="${name}" value="${l.v}" data-cat="${cat.key}"><span>${l.label}</span></label>
+    `).join('')}</div>`;
+    section.appendChild(qDiv);
+  });
+  form.appendChild(section);
+});
+
+document.getElementById('consent').addEventListener('change', e=>{
+  document.getElementById('startBtn').disabled = !e.target.checked;
+});
+
+document.getElementById('startBtn').addEventListener('click', ()=>{
+  document.getElementById('gate').style.display='none';
+  form.style.display='block';
+  document.getElementById('progressShell').style.display='block';
+  document.getElementById('submitWrap').style.display='block';
+  updateProgress();
+});
+
+form.addEventListener('change', updateProgress);
+
+function updateProgress(){
+  const answered = form.querySelectorAll('input[type=radio]:checked').length;
+  document.getElementById('progressFill').style.width = (answered/totalQ*100)+'%';
+  document.getElementById('progressText').textContent = `${answered} / ${totalQ} yanıtlandı`;
+  document.getElementById('calcBtn').disabled = answered < totalQ;
+}
+
+document.getElementById('calcBtn').addEventListener('click', ()=>{
+  const answered = form.querySelectorAll('input[type=radio]:checked').length;
+  if(answered < totalQ){ alert('Lütfen tüm soruları yanıtlayın.'); return; }
+  calculate();
+});
+
+document.getElementById('retakeBtn').addEventListener('click', ()=>location.reload());
+
+function calculate(){
+  const catScores = {};
+  CATEGORIES.forEach(cat=>{
+    let sum=0;
+    cat.questions.forEach((q, qi)=>{
+      const val = parseInt(form.querySelector(`input[name="${cat.key}_${qi}"]:checked`).value);
+      sum += val;
+    });
+    const avg = sum / cat.questions.length; // 1-5
+    catScores[cat.key] = ((avg-1)/4)*100; // 0-100
+  });
+
+  let weightedSum=0, weightTotal=0;
+  CATEGORIES.forEach(cat=>{
+    weightedSum += catScores[cat.key]*WEIGHTS[cat.key];
+    weightTotal += WEIGHTS[cat.key];
+  });
+  const overall = Math.round(weightedSum/weightTotal);
+
+  form.style.display='none';
+  document.getElementById('submitWrap').style.display='none';
+  document.getElementById('progressShell').style.display='none';
+  document.getElementById('results').style.display='block';
+
+  renderGauge(overall);
+  renderTier(overall);
+  renderRadar(catScores);
+  renderBars(catScores);
+  renderFindings(catScores, overall);
+
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function renderGauge(score){
+  const svg = document.getElementById('gaugeSvg');
+  const cx=110, cy=120, r=95;
+  const startAngle = Math.PI, endAngle = 0;
+  const frac = score/100;
+  const angle = Math.PI - frac*Math.PI;
+  const x1 = cx + r*Math.cos(startAngle), y1 = cy + r*Math.sin(startAngle);
+  const x2 = cx + r*Math.cos(endAngle), y2 = cy + r*Math.sin(endAngle);
+  const xN = cx + r*Math.cos(angle), yN = cy + r*Math.sin(angle);
+  let color = score<40?'#B91C1C':score<70?'#B45309':'#0F766E';
+  svg.innerHTML = `
+    <path d="M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}" fill="none" stroke="#E2E8F0" stroke-width="14" stroke-linecap="round"/>
+    <path d="M ${x1} ${y1} A ${r} ${r} 0 0 1 ${xN} ${yN}" fill="none" stroke="${color}" stroke-width="14" stroke-linecap="round"/>
+  `;
+  document.getElementById('scoreNum').textContent = score;
+  document.getElementById('scoreNum').style.color = color;
+}
+
+function renderTier(score){
+  let title, desc;
+  if(score<30){title="Başlangıç Seviyesi"; desc="Kayıplar sistematik ve yaygın görünüyor. Öncelik: en düşük skorlu kategorilerde hızlı, düşük maliyetli önlemlerle başlamak.";}
+  else if(score<50){title="Gelişmekte";desc="Bazı alanlarda kontrol sağlanmış, ancak kayıplar üretim/maliyet üzerinde hâlâ belirgin etki yaratıyor.";}
+  else if(score<70){title="Yetkin";desc="Süreçlerin çoğu kontrol altında; hedefli iyileştirmelerle verimlilik önemli ölçüde artırılabilir.";}
+  else if(score<85){title="İleri Seviye";desc="Kayıplar büyük ölçüde kontrol altında. Kalan iyileştirme alanları ince ayar ve sürekli izleme gerektiriyor.";}
+  else {title="Mükemmellik";desc="Ölçülen boyutlarda kayıplar minimum düzeyde. Odak, mevcut performansı sürdürmeye ve öncü göstergelerle izlemeye kaymalı.";}
+  document.getElementById('tierTitle').textContent = title;
+  document.getElementById('tierDesc').textContent = desc;
+}
+
+function renderRadar(catScores){
+  const svg = document.getElementById('radarSvg');
+  const cx=140, cy=140, R=105;
+  const n = CATEGORIES.length;
+  const rings = [0.25,0.5,0.75,1];
+  let gridPaths = rings.map(f=>{
+    const pts = CATEGORIES.map((c,i)=>{
+      const ang = -Math.PI/2 + i*(2*Math.PI/n);
+      return `${cx+R*f*Math.cos(ang)},${cy+R*f*Math.sin(ang)}`;
+    }).join(' ');
+    return `<polygon points="${pts}" fill="none" stroke="#E2E8F0" stroke-width="1"/>`;
+  }).join('');
+
+  let axes = CATEGORIES.map((c,i)=>{
+    const ang = -Math.PI/2 + i*(2*Math.PI/n);
+    const x = cx+R*Math.cos(ang), y=cy+R*Math.sin(ang);
+    const lx = cx+(R+22)*Math.cos(ang), ly=cy+(R+22)*Math.sin(ang);
+    return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="${lx}" y="${ly}" font-size="9.5" fill="#475569" text-anchor="middle" font-family="IBM Plex Mono, monospace">${c.title.split(' ')[0]}</text>`;
+  }).join('');
+
+  let dataPts = CATEGORIES.map((c,i)=>{
+    const ang = -Math.PI/2 + i*(2*Math.PI/n);
+    const f = catScores[c.key]/100;
+    return `${cx+R*f*Math.cos(ang)},${cy+R*f*Math.sin(ang)}`;
+  }).join(' ');
+
+  svg.innerHTML = `${gridPaths}${axes}<polygon points="${dataPts}" fill="#0F766E" fill-opacity="0.18" stroke="#0F766E" stroke-width="2"/>`;
+}
+
+function renderBars(catScores){
+  const bars = document.getElementById('bars');
+  bars.innerHTML = CATEGORIES.map(c=>{
+    const s = Math.round(catScores[c.key]);
+    const color = s<40?'#B91C1C':s<70?'#B45309':'#0F766E';
+    return `<div class="bar-row">
+      <div class="bar-label"><span>${c.title}</span><b>${s}</b></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${s}%;background:${color};"></div></div>
+    </div>`;
+  }).join('');
+}
+
+const RECS = {
+  isgucu:"Devamsızlık ve fazla mesai verilerini aylık izleyin; görev-yetkinlik eşleşmesini gözden geçirin.",
+  surec:"En sık tekrar eden 2-3 süreci haritalandırıp onay adımlarını ve bekleme sürelerini azaltın.",
+  uretim:"Planlı bakım takvimi oluşturun; en sık arızalanan ekipmanda kök neden analizi yapın.",
+  stok:"Yavaş hareket eden stok kalemlerini belirleyip talep tahminini veri temelli hale getirin.",
+  enerji:"Enerji yoğun ekipmanlarda basit bir tüketim ölçümü başlatın; kaçak taraması planlayın.",
+  zaman:"Değişim (setup) sürelerini kronometreleyip standart bir prosedür oluşturun (SMED yaklaşımı)."
+};
+
+function renderFindings(catScores, overall){
+  const sorted = [...CATEGORIES].sort((a,b)=>catScores[a.key]-catScores[b.key]);
+  const weakest = sorted.slice(0,3);
+  const strongest = sorted[sorted.length-1];
+  const list = document.getElementById('findingsList');
+  let html = weakest.map(c=>{
+    const s = Math.round(catScores[c.key]);
+    return `<div class="finding warn"><div class="f-head"><span>${c.title}</span><span class="pct">${s}/100</span></div><p>${RECS[c.key]}</p></div>`;
+  }).join('');
+  const ss = Math.round(catScores[strongest.key]);
+  html += `<div class="finding good"><div class="f-head"><span>Güçlü Alan — ${strongest.title}</span><span class="pct">${ss}/100</span></div><p>Bu boyut göreli olarak iyi kontrol altında; mevcut uygulamayı standartlaştırıp diğer alanlara örnek alın.</p></div>`;
+  list.innerHTML = html;
+}
+</script>
+</body>
+</html>
