@@ -439,41 +439,41 @@ function MethodologyModal({ onClose }) {
       <div className="bg-[#FAF9F6] border border-slate-900 max-w-xl w-full max-h-[85vh] overflow-y-auto p-8 md:p-12 text-slate-900 shadow-2xl" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-start justify-between mb-8 pb-4 border-b border-slate-900">
           <div>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-slate-500 block mb-1">DOKÜMAN #01</span>
-            <h3 className="text-xl font-bold tracking-tight uppercase" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Metodoloji &amp; Dayanaklar</h3>
+            <span className="font-semibold text-[10px] uppercase tracking-widest text-slate-500 block mb-1">DOKÜMAN #01</span>
+            <h3 className="text-xl font-bold tracking-tight uppercase" style={{ fontFamily: "'Manrope', sans-serif" }}>Metodoloji &amp; Dayanaklar</h3>
           </div>
-          <button onClick={onClose} className="font-mono text-xs uppercase text-slate-500 hover:text-slate-900 transition">
+          <button onClick={onClose} className="font-semibold text-xs uppercase text-slate-500 hover:text-slate-900 transition">
             [KAPAT]
           </button>
         </div>
-        <div className="space-y-6 text-xs leading-relaxed" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <div className="space-y-6 text-xs leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           <div>
-            <p className="font-mono text-[10px] text-amber-700 uppercase font-bold mb-0.5">// 01 GENEL ÇERÇEVE</p>
+            <p className="font-semibold text-[10px] text-amber-700 uppercase font-bold mb-0.5">// 01 GENEL ÇERÇEVE</p>
             <p className="font-bold text-sm text-slate-900 mb-1">Toyota Üretim Sistemi — 7 İsraf (Muda) Sınıflandırması</p>
             <p className="text-slate-600">İş Gücü ve Süreç boyutlarının temelini oluşturan Lean sınıflandırması; kullanılmayan yetenek, bekleme, taşıma, fazla işleme, fazla üretim, stok ve hareket israflarını tanımlar.</p>
           </div>
           <div>
-            <p className="font-mono text-[10px] text-amber-700 uppercase font-bold mb-0.5">// 02 SÜREÇ VERİMLİLİĞİ</p>
+            <p className="font-semibold text-[10px] text-amber-700 uppercase font-bold mb-0.5">// 02 SÜREÇ VERİMLİLİĞİ</p>
             <p className="font-bold text-sm text-slate-900 mb-1">Lean Altı Sigma — Süreç Döngü Verimliliği (PCE)</p>
             <p className="text-slate-600">Toplam sürecin ne kadarının katma değerli olduğunu ölçen yaklaşım; Süreç Kayıpları boyutundaki soruların çerçevesini oluşturur.</p>
           </div>
           <div>
-            <p className="font-mono text-[10px] text-amber-700 uppercase font-bold mb-0.5">// 03 EKİPMAN ETKİNLİĞİ</p>
+            <p className="font-semibold text-[10px] text-amber-700 uppercase font-bold mb-0.5">// 03 EKİPMAN ETKİNLİĞİ</p>
             <p className="font-bold text-sm text-slate-900 mb-1">TPM — Toplam Ekipman Etkinliği (OEE, Nakajima)</p>
             <p className="text-slate-600">Kullanılabilirlik × Performans × Kalite formülüyle üretim kayıplarını üç bileşene ayıran, dünya çapında yaygın kabul gören metodoloji.</p>
           </div>
           <div>
-            <p className="font-mono text-[10px] text-amber-700 uppercase font-bold mb-0.5">// 04 TEDARİK ZİNCİRİ</p>
+            <p className="font-semibold text-[10px] text-amber-700 uppercase font-bold mb-0.5">// 04 TEDARİK ZİNCİRİ</p>
             <p className="font-bold text-sm text-slate-900 mb-1">APICS/ASCM Tedarik Zinciri KPI Çerçevesi</p>
             <p className="text-slate-600">Stok devir hızı, stok tükenmesi ve atıl stok gibi göstergeleri kapsayan, uluslararası tedarik zinciri yönetimi kuruluşunun çerçevesi.</p>
           </div>
           <div>
-            <p className="font-mono text-[10px] text-amber-700 uppercase font-bold mb-0.5">// 05 ENERJİ YÖNETİMİ</p>
+            <p className="font-semibold text-[10px] text-amber-700 uppercase font-bold mb-0.5">// 05 ENERJİ YÖNETİMİ</p>
             <p className="font-bold text-sm text-slate-900 mb-1">ISO 50001:2018 — Enerji Yönetim Sistemi</p>
             <p className="text-slate-600">Enerji Performans Göstergesi (EnPI) mantığıyla birim üretim başına tüketimi izlemeyi esas alan uluslararası standart.</p>
           </div>
           <div>
-            <p className="font-mono text-[10px] text-amber-700 uppercase font-bold mb-0.5">// 06 ZAMAN YÖNETİMİ</p>
+            <p className="font-semibold text-[10px] text-amber-700 uppercase font-bold mb-0.5">// 06 ZAMAN YÖNETİMİ</p>
             <p className="font-bold text-sm text-slate-900 mb-1">SMED (Shigeo Shingo) &amp; Takt Süresi</p>
             <p className="text-slate-600">Hazırlık/değişim sürelerini sistematik olarak kısaltan SMED yöntemi ve talebe göre üretim hızını dengeleyen takt süresi kavramı, Zaman Kayıpları boyutunun temelidir.</p>
           </div>
@@ -512,7 +512,7 @@ function Gauge({ value, color = "#0F172A", maxWidth = 220 }) {
       <path d={arcPath(startAngle, needleAngle, r)} fill="none" stroke={color} strokeWidth="12" strokeLinecap="round" />
       <line x1={cx} y1={cy} x2={nx} y2={ny} stroke="#0F172A" strokeWidth="3.5" strokeLinecap="round" />
       <circle cx={cx} cy={cy} r="6" fill="#0F172A" />
-      <text x={cx} y={cy - 32} textAnchor="middle" fontSize="30" fontWeight="800" fill="#0F172A" fontFamily="'Space Grotesk', sans-serif">
+      <text x={cx} y={cy - 32} textAnchor="middle" fontSize="30" fontWeight="800" fill="#0F172A" fontFamily="'Manrope', sans-serif">
         {Math.round(value)}
       </text>
     </svg>
@@ -587,25 +587,25 @@ function KVKKModal({ onClose }) {
       <div className="bg-[#FAF9F6] border border-slate-900 max-w-xl w-full max-h-[85vh] overflow-y-auto p-8 md:p-12 text-slate-900 shadow-2xl" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-start justify-between mb-8 pb-4 border-b border-slate-900">
           <div>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-slate-500 block mb-1">DOKÜMAN #00</span>
-            <h3 className="text-xl font-bold tracking-tight uppercase" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+            <span className="font-semibold text-[10px] uppercase tracking-widest text-slate-500 block mb-1">DOKÜMAN #00</span>
+            <h3 className="text-xl font-bold tracking-tight uppercase" style={{ fontFamily: "'Manrope', sans-serif" }}>
               KVKK Aydınlatma Metni
             </h3>
           </div>
-          <button onClick={onClose} className="font-mono text-xs uppercase text-slate-500 hover:text-slate-900 transition">
+          <button onClick={onClose} className="font-semibold text-xs uppercase text-slate-500 hover:text-slate-900 transition">
             [KAPAT]
           </button>
         </div>
-        <div className="space-y-5 text-xs leading-relaxed" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <div className="space-y-5 text-xs leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           <div>
-            <p className="font-mono text-[10px] text-amber-700 uppercase font-bold mb-0.5">// VERİ SORUMLUSU</p>
+            <p className="font-semibold text-[10px] text-amber-700 uppercase font-bold mb-0.5">// VERİ SORUMLUSU</p>
             <p className="text-slate-600">
               Bu değerlendirme, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") kapsamında
               Çorlu Ticaret ve Sanayi Odası ("Oda") tarafından veri sorumlusu sıfatıyla yürütülmektedir.
             </p>
           </div>
           <div>
-            <p className="font-mono text-[10px] text-amber-700 uppercase font-bold mb-0.5">// İŞLENEN VERİLER</p>
+            <p className="font-semibold text-[10px] text-amber-700 uppercase font-bold mb-0.5">// İŞLENEN VERİLER</p>
             <p className="text-slate-600">
               Değerlendirmeyi tamamlayıp sonuç raporunu görüntülemeniz için firma unvanı, yetkili
               adı-soyadı, e-posta adresi, telefon numarası ile anket yanıtlarınız ve hesaplanan
@@ -613,7 +613,7 @@ function KVKKModal({ onClose }) {
             </p>
           </div>
           <div>
-            <p className="font-mono text-[10px] text-amber-700 uppercase font-bold mb-0.5">// İŞLEME AMACI</p>
+            <p className="font-semibold text-[10px] text-amber-700 uppercase font-bold mb-0.5">// İŞLEME AMACI</p>
             <p className="text-slate-600">
               Verileriniz; işletmenizin verimlilik olgunluk düzeyinin ölçülmesi, size özel sonuç
               raporunun sunulması ve Oda tarafından ilerleyen dönemde tarafınızla iletişime geçilerek
@@ -621,14 +621,14 @@ function KVKKModal({ onClose }) {
             </p>
           </div>
           <div>
-            <p className="font-mono text-[10px] text-amber-700 uppercase font-bold mb-0.5">// HUKUKİ SEBEP</p>
+            <p className="font-semibold text-[10px] text-amber-700 uppercase font-bold mb-0.5">// HUKUKİ SEBEP</p>
             <p className="text-slate-600">
               KVKK md. 5/1 uyarınca açık rızanıza dayanılarak; Oda'nın üyelerine yönelik verimlilik
               geliştirme faaliyetlerinin yürütülmesi meşru amacıyla işlenir.
             </p>
           </div>
           <div>
-            <p className="font-mono text-[10px] text-amber-700 uppercase font-bold mb-0.5">// SAKLAMA VE GÜVENLİK</p>
+            <p className="font-semibold text-[10px] text-amber-700 uppercase font-bold mb-0.5">// SAKLAMA VE GÜVENLİK</p>
             <p className="text-slate-600">
               Veriler, yalnızca Oda yetkilileri tarafından erişilebilen güvenli bir veritabanında
               saklanır ve amaç için gerekli süre boyunca tutulur; üçüncü taraflarla paylaşılmaz veya
@@ -636,7 +636,7 @@ function KVKKModal({ onClose }) {
             </p>
           </div>
           <div>
-            <p className="font-mono text-[10px] text-amber-700 uppercase font-bold mb-0.5">// HAKLARINIZ</p>
+            <p className="font-semibold text-[10px] text-amber-700 uppercase font-bold mb-0.5">// HAKLARINIZ</p>
             <p className="text-slate-600">
               KVKK md. 11 uyarınca verilerinize erişme, düzeltilmesini/silinmesini talep etme ve rızanızı
               geri alma dahil haklarınızı kullanmak için Oda'ya yazılı olarak başvurabilirsiniz.
@@ -787,294 +787,540 @@ export default function App() {
   const isCenteredScreen = step === "intro" || step === "quiz";
 
   return (
-    <div className="h-screen w-screen bg-[#FAF9F6] text-slate-900 flex flex-col justify-between overflow-hidden relative" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-
-      {/* Font Injections */}
+    <div
+      className="min-h-screen w-full bg-[#F4F7FB] text-[#0B234A] flex flex-col relative overflow-x-hidden"
+      style={{ fontFamily: "'DM Sans', sans-serif" }}
+    >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
+        * { box-sizing: border-box; }
+        html { background: #f4f7fb; }
+        body { margin: 0; background: #f4f7fb; }
+        ::selection { background: #F2B90A; color: #071A3C; }
+        .productivity-scroll::-webkit-scrollbar { width: 7px; }
+        .productivity-scroll::-webkit-scrollbar-track { background: rgba(11,35,74,.06); }
+        .productivity-scroll::-webkit-scrollbar-thumb { background: rgba(11,35,74,.24); border-radius: 99px; }
+        .soft-grid {
+          background-image:
+            linear-gradient(rgba(11,35,74,.035) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(11,35,74,.035) 1px, transparent 1px);
+          background-size: 34px 34px;
+        }
       `}</style>
 
-      {/* Açık Renk Mimari Duvar Kağıdı Deseni */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#FAF9F6] via-[#F5F3EF] to-[#EFECE6] pointer-events-none" />
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.04]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z' fill='%3C%23000000%3E'/%3E%3C/g%3E%3C/svg%3E")`
-        }}
-      />
+      {/* Industrial / efficiency background */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-[0.10]"
+          style={{ backgroundImage: "url('/verimlilik-bg.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(244,247,251,.76)_0%,rgba(244,247,251,.92)_34%,#F4F7FB_72%)]" />
+        <div className="absolute inset-0 soft-grid opacity-40" />
+        <div className="absolute -top-40 -right-40 w-[620px] h-[620px] rounded-full bg-amber-300/10 blur-3xl" />
+        <div className="absolute top-[32%] -left-52 w-[520px] h-[520px] rounded-full bg-cyan-300/10 blur-3xl" />
+      </div>
 
       {/* Header */}
-      <header className="border-b border-slate-900/10 px-8 py-5 flex-shrink-0 relative z-10 bg-[#FAF9F6]/80 backdrop-blur-md print:hidden">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-amber-700 font-bold block">KURUMSAL SKORKART</span>
-            <h1 className="font-bold text-base md:text-lg tracking-tight text-slate-900 uppercase" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-              Çorlu Ticaret ve Sanayi Odası
-            </h1>
+      <header className="relative z-30 bg-[#06193A]/[0.98] border-b border-[#E5AE14]/80 shadow-[0_10px_30px_rgba(6,25,58,.16)] print:hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[92px] flex items-center justify-between gap-5">
+          <div className="flex items-center min-w-0 gap-4 sm:gap-5">
+            <div className="relative flex-shrink-0">
+              <div className="absolute -inset-1 rounded-full border border-[#E5AE14]/35" />
+              <img
+                src="/ctso-logo.png"
+                alt="Çorlu Ticaret ve Sanayi Odası"
+                className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full object-contain bg-white p-0.5 shadow-[0_0_0_2px_rgba(229,174,20,.8)]"
+              />
+            </div>
+            <div className="h-14 w-px bg-white/25 hidden sm:block" />
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[#F2B90A] text-[11px] sm:text-sm font-extrabold uppercase tracking-[0.055em]" style={{ fontFamily: "'Manrope', sans-serif" }}>
+                  Çorlu Ticaret ve Sanayi Odası
+                </span>
+                <span className="hidden md:inline w-1.5 h-1.5 rounded-full bg-white/45" />
+                <span className="hidden md:inline text-white/60 text-[10px] font-bold uppercase tracking-[0.16em]">
+                  Dijital Dönüşüm Portalı
+                </span>
+              </div>
+              <h1 className="text-white text-lg sm:text-[25px] font-extrabold tracking-[-0.035em] leading-tight mt-0.5 truncate" style={{ fontFamily: "'Manrope', sans-serif" }}>
+                Verimlilik Ölçüm Aracı
+              </h1>
+            </div>
           </div>
-          <button
-            onClick={() => setShowMethodology(true)}
-            className="font-mono text-[11px] uppercase tracking-widest border border-slate-900 rounded-none px-4 py-2 hover:bg-slate-900 hover:text-white transition duration-200 text-slate-800"
-          >
-            METODOLOJİ
-          </button>
+
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            {step !== "intro" && (
+              <div className="hidden lg:flex items-center gap-2 px-3 py-2 rounded-xl border border-white/10 bg-white/[0.05] text-white/75 text-xs font-semibold">
+                <span className="w-2 h-2 rounded-full bg-[#F2B90A]" />
+                {step === "quiz" ? `Soru ${qIndex + 1}/${QUESTIONS.length}` : step === "contact" ? "Son Adım" : "Sonuç Raporu"}
+              </div>
+            )}
+            <button
+              onClick={() => setShowMethodology(true)}
+              className="group inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.06] hover:bg-white/[0.12] text-white px-3 sm:px-4 py-2.5 text-[11px] sm:text-xs font-bold transition-all duration-200"
+            >
+              <svg className="w-4 h-4 text-[#F2B90A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <path d="M12 3.5 4.5 7v5c0 4.7 2.8 7.7 7.5 9 4.7-1.3 7.5-4.3 7.5-9V7L12 3.5Z" />
+                <path d="m9.2 12 1.8 1.8 4-4" />
+              </svg>
+              <span className="hidden sm:inline">Metodoloji</span>
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* Main Container */}
-      <main className={`max-w-5xl mx-auto px-6 py-4 flex-1 w-full relative z-10 min-h-0 overflow-y-auto ${
-        isCenteredScreen ? "flex items-center justify-center" : ""
-      }`}>
-        <div className={`w-full ${step === "results" ? "h-full" : ""}`}>
+      <main className="relative z-10 flex-1 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
 
           {/* ---------------- INTRO ---------------- */}
           {step === "intro" && (
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
-              <div className="md:col-span-8">
-                <span className="font-mono text-[11px] uppercase tracking-widest text-amber-700 block mb-3 font-bold">
-                  [ TPM/OEE · LEAN ALTI SİGMA · ISO 50001 · APICS/ASCM · SMED ]
-                </span>
-                <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 uppercase leading-none mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                  İşletmeniz kayıplarının ne kadarının farkında?
-                </h2>
-                <p className="text-slate-600 text-sm md:text-base font-normal max-w-xl leading-relaxed">
-                  24 soruluk bu editoryal öz-değerlendirme; iş gücü, süreç, üretim, stok, enerji ve
-                  zaman boyutlarındaki verimlilik kayıplarınızı ölçer ve önceliklendirir.
-                </p>
-              </div>
+            <div className="space-y-6 lg:space-y-8">
+              <section className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch">
+                <div className="lg:col-span-7 relative overflow-hidden rounded-[26px] min-h-[520px] lg:min-h-[570px] shadow-[0_24px_70px_rgba(6,25,58,.17)] border border-white/60">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center scale-[1.02]"
+                    style={{ backgroundImage: "url('/verimlilik-bg.jpg')" }}
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,20,49,.96)_0%,rgba(4,20,49,.86)_45%,rgba(4,20,49,.35)_78%,rgba(4,20,49,.22)_100%)]" />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,20,49,.15)_0%,rgba(4,20,49,.15)_56%,rgba(4,20,49,.72)_100%)]" />
 
-              <div className="md:col-span-4 border-t md:border-t-0 md:border-l border-slate-900/10 pt-6 md:pt-0 md:pl-8 flex flex-col justify-between">
-                <div className="space-y-2 font-mono text-[11px] uppercase tracking-widest text-slate-500 mb-6">
-                  {DIMENSIONS.map((d, i) => (
-                    <div key={d.key} className="flex justify-between border-b border-slate-900/10 pb-1.5">
-                      <span>0{i + 1}. {d.short}</span>
-                      <span className="text-slate-900 font-bold">✓</span>
+                  <div className="relative h-full p-6 sm:p-9 lg:p-11 flex flex-col justify-between">
+                    <div>
+                      <div className="inline-flex items-center gap-2 rounded-full border border-[#F2B90A]/45 bg-[#F2B90A]/10 px-3.5 py-2 text-[#FFD96A] text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.14em] backdrop-blur-md">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#F2B90A]" />
+                        Verimlilik · Rekabet · Sürdürülebilirlik
+                      </div>
+
+                      <h2 className="mt-6 max-w-[670px] text-white text-[38px] sm:text-[52px] lg:text-[58px] leading-[1.02] font-extrabold tracking-[-0.05em]" style={{ fontFamily: "'Manrope', sans-serif" }}>
+                        Verimliliğinizi ölçün. Kayıpları görün. Daha güçlü büyüyün.
+                      </h2>
+                      <p className="mt-5 max-w-[610px] text-white/78 text-sm sm:text-[16px] leading-7 font-medium">
+                        İş gücünden süreçlere, üretimden enerji ve zamana kadar işletmenizin görünmeyen
+                        kayıplarını 24 soruda analiz edin; geliştirme önceliklerinizi netleştirin.
+                      </p>
                     </div>
-                  ))}
+
+                    <div className="mt-10">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5 max-w-2xl">
+                        {[
+                          ["01", "Veriye Dayalı Ölçüm"],
+                          ["02", "Karşılaştırmalı Analiz"],
+                          ["03", "Uygulanabilir Aksiyon"],
+                        ].map(([n, text]) => (
+                          <div key={n} className="rounded-2xl border border-white/14 bg-white/[0.075] backdrop-blur-md px-4 py-3.5 flex items-center gap-3">
+                            <span className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#F2B90A]/15 border border-[#F2B90A]/30 text-[#FFD458] text-xs font-extrabold">
+                              {n}
+                            </span>
+                            <span className="text-white/88 text-[12px] font-semibold leading-snug">{text}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <label className="flex items-start gap-3 max-w-2xl cursor-pointer rounded-2xl border border-white/10 bg-black/10 backdrop-blur-sm p-3.5 mb-4">
+                        <input
+                          type="checkbox"
+                          checked={kvkkAccepted}
+                          onChange={(e) => setKvkkAccepted(e.target.checked)}
+                          className="mt-0.5 w-4 h-4 accent-[#F2B90A] flex-shrink-0 cursor-pointer"
+                        />
+                        <span className="text-[11px] sm:text-xs text-white/70 leading-relaxed">
+                          <button
+                            type="button"
+                            onClick={(e) => { e.preventDefault(); setShowKVKK(true); }}
+                            className="text-white font-bold underline decoration-[#F2B90A] underline-offset-2 hover:text-[#FFD458]"
+                          >
+                            KVKK Aydınlatma Metni
+                          </button>
+                          'ni okudum, kişisel verilerimin belirtilen amaçlarla işlenmesini onaylıyorum.
+                        </span>
+                      </label>
+
+                      <div className="flex flex-col sm:flex-row gap-3 max-w-xl">
+                        <button
+                          onClick={() => kvkkAccepted && setStep("quiz")}
+                          disabled={!kvkkAccepted}
+                          className={`min-h-[52px] flex-1 rounded-xl px-6 font-extrabold text-sm transition-all duration-200 flex items-center justify-center gap-3 shadow-lg ${
+                            kvkkAccepted
+                              ? "bg-[#F2B90A] hover:bg-[#FFD04A] text-[#071A3C] shadow-[#F2B90A]/15 hover:-translate-y-0.5"
+                              : "bg-white/15 text-white/45 cursor-not-allowed shadow-none"
+                          }`}
+                        >
+                          Değerlendirmeye Başla
+                          <span className="text-xl leading-none">→</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setShowMethodology(true)}
+                          className="min-h-[52px] rounded-xl px-5 border border-white/20 bg-white/[0.08] hover:bg-white/[0.14] text-white text-sm font-bold transition-all"
+                        >
+                          Nasıl Çalışır?
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <label className="flex items-start gap-2.5 mb-4 cursor-pointer group">
-                  <input
-                    type="checkbox"
-                    checked={kvkkAccepted}
-                    onChange={(e) => setKvkkAccepted(e.target.checked)}
-                    className="mt-0.5 w-4 h-4 accent-slate-900 flex-shrink-0 cursor-pointer"
-                  />
-                  <span className="text-[11px] text-slate-600 leading-snug">
-                    <button
-                      type="button"
-                      onClick={(e) => { e.preventDefault(); setShowKVKK(true); }}
-                      className="underline font-bold text-slate-900 hover:text-amber-700"
-                    >
-                      KVKK Aydınlatma Metni
-                    </button>
-                    'ni okudum, kişisel verilerimin belirtilen amaçlarla işlenmesini onaylıyorum.
-                  </span>
-                </label>
+                <div className="lg:col-span-5 rounded-[26px] bg-[#071D43]/[0.97] text-white p-6 sm:p-7 lg:p-8 shadow-[0_24px_70px_rgba(6,25,58,.18)] border border-[#27456F] relative overflow-hidden">
+                  <div className="absolute -right-28 -top-24 w-72 h-72 rounded-full border border-[#F2B90A]/10" />
+                  <div className="absolute -right-16 -top-14 w-52 h-52 rounded-full border border-[#F2B90A]/10" />
+                  <div className="relative">
+                    <div className="flex items-start justify-between gap-4 mb-7">
+                      <div>
+                        <span className="text-[#F2B90A] text-[10px] font-extrabold uppercase tracking-[0.16em]">Ölçüm Çerçevesi</span>
+                        <h3 className="mt-1 text-2xl font-extrabold tracking-[-0.035em]" style={{ fontFamily: "'Manrope', sans-serif" }}>
+                          6 boyutta bütünsel analiz
+                        </h3>
+                      </div>
+                      <div className="rounded-2xl bg-white/[0.06] border border-white/10 px-3 py-2 text-right">
+                        <div className="text-2xl font-extrabold text-[#F2B90A] leading-none">24</div>
+                        <div className="text-[9px] text-white/55 uppercase tracking-[0.12em] mt-1">Soru</div>
+                      </div>
+                    </div>
 
-                <button
-                  onClick={() => kvkkAccepted && setStep("quiz")}
-                  disabled={!kvkkAccepted}
-                  className={`w-full font-mono text-xs uppercase tracking-widest py-4 px-6 transition duration-300 text-center font-bold ${
-                    kvkkAccepted
-                      ? "bg-slate-900 hover:bg-amber-800 text-white cursor-pointer"
-                      : "bg-slate-300 text-slate-500 cursor-not-allowed"
-                  }`}
-                >
-                  DEĞERLENDİRMEYİ BAŞLAT →
-                </button>
-              </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      {DIMENSIONS.map((d, i) => (
+                        <div key={d.key} className="group rounded-2xl border border-white/10 bg-white/[0.055] hover:bg-white/[0.09] hover:border-[#F2B90A]/30 p-4 transition-all duration-200">
+                          <div className="flex items-center justify-between mb-5">
+                            <span className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#F2B90A]/10 border border-[#F2B90A]/25 text-[#F2B90A] text-xs font-extrabold">
+                              0{i + 1}
+                            </span>
+                            <span className="text-[10px] uppercase tracking-[0.12em] text-white/35 font-bold">4 soru</span>
+                          </div>
+                          <div className="text-sm font-bold text-white/92">{d.short}</div>
+                          <div className="mt-2 h-1 rounded-full bg-white/10 overflow-hidden">
+                            <div className="h-full rounded-full bg-gradient-to-r from-[#F2B90A]/60 to-[#F2B90A]" style={{ width: `${42 + i * 7}%` }} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-6 rounded-2xl border border-[#F2B90A]/20 bg-[#F2B90A]/[0.075] p-4">
+                      <div className="flex gap-3 items-start">
+                        <div className="w-9 h-9 flex-shrink-0 rounded-xl bg-[#F2B90A] text-[#071A3C] flex items-center justify-center font-black">↗</div>
+                        <div>
+                          <div className="text-sm font-bold">Sonuçta ne alacaksınız?</div>
+                          <p className="mt-1 text-[11px] leading-relaxed text-white/62">
+                            Genel skor, boyut bazlı performans, en zayıf üç alan ve doğrudan uygulanabilir iyileştirme önerileri.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                {[
+                  ["6", "Analiz Boyutu", "İşletmenin temel kayıp alanları"],
+                  ["24", "Kritik Soru", "Hızlı ama kapsamlı değerlendirme"],
+                  ["100", "Puanlık Skor", "Karşılaştırılabilir performans yapısı"],
+                  ["3", "Öncelikli Alan", "İlk odaklanmanız gereken konular"],
+                ].map(([v, label, desc]) => (
+                  <div key={label} className="rounded-2xl bg-white/90 backdrop-blur border border-[#DCE4EF] p-4 sm:p-5 shadow-[0_10px_30px_rgba(11,35,74,.05)]">
+                    <div className="text-2xl sm:text-3xl font-extrabold text-[#0B234A] tracking-[-0.04em]" style={{ fontFamily: "'Manrope', sans-serif" }}>{v}</div>
+                    <div className="text-xs sm:text-sm font-bold text-[#0B234A] mt-1">{label}</div>
+                    <div className="text-[10px] sm:text-[11px] text-slate-500 mt-1 leading-relaxed">{desc}</div>
+                  </div>
+                ))}
+              </section>
             </div>
           )}
 
-          {/* ---------------- QUIZ (Kaydırmasız Tek Sayfa Düzeni) ---------------- */}
+          {/* ---------------- QUIZ ---------------- */}
           {step === "quiz" && currentQ && (
-            <div className="max-w-3xl mx-auto flex flex-col justify-between h-auto">
-              <div>
-                <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest text-slate-500 mb-4 border-b border-slate-900/10 pb-2">
-                  <span className="text-amber-700 font-bold">// BOYUT: {DIMENSIONS.find((d) => d.key === currentQ.dim)?.label.toUpperCase()}</span>
-                  <span>SORU {qIndex + 1} / {QUESTIONS.length}</span>
+            <section className="max-w-6xl mx-auto">
+              <div className="mb-4 flex items-center justify-between gap-4">
+                <div>
+                  <span className="text-[#B98300] text-[10px] font-extrabold uppercase tracking-[0.16em]">Verimlilik Değerlendirmesi</span>
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-[#0B234A] tracking-[-0.035em] mt-1" style={{ fontFamily: "'Manrope', sans-serif" }}>
+                    İşletmenizin mevcut durumunu puanlayın
+                  </h2>
                 </div>
-
-                <h2 className="text-lg md:text-xl font-bold text-slate-900 uppercase leading-snug mb-5" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                  {currentQ.text}
-                </h2>
-
-                <div className="space-y-2.5">
-                  {currentQ.options.map((opt, i) => (
-                    <button
-                      key={i}
-                      onClick={() => handleAnswer(i + 1)}
-                      className="w-full text-left p-4 bg-white/80 border border-slate-900/15 hover:border-slate-900 hover:bg-slate-900 hover:text-white transition duration-150 flex items-center gap-4 group"
-                    >
-                      <span className="font-mono text-[11px] uppercase tracking-widest text-slate-400 group-hover:text-amber-400 font-bold">
-                        [0{i + 1}]
-                      </span>
-                      <span className="text-xs md:text-sm font-medium tracking-tight">
-                        {opt}
-                      </span>
-                    </button>
-                  ))}
+                <div className="text-right flex-shrink-0">
+                  <div className="text-sm font-extrabold text-[#0B234A]">{qIndex + 1}<span className="text-slate-400 font-semibold"> / {QUESTIONS.length}</span></div>
+                  <div className="text-[10px] text-slate-500 uppercase tracking-[0.1em] mt-0.5">Soru</div>
                 </div>
               </div>
 
-              {qIndex > 0 && (
-                <div className="mt-4">
-                  <button
-                    onClick={() => setQIndex(qIndex - 1)}
-                    className="font-mono text-[10px] uppercase tracking-widest text-slate-500 hover:text-slate-900 transition"
-                  >
-                    ← ÖNCEKİ SORUYA DÖN
-                  </button>
+              <div className="h-2 rounded-full bg-white border border-[#DDE5EF] overflow-hidden shadow-inner mb-5">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-[#D89A00] via-[#F2B90A] to-[#FFD458] transition-all duration-500"
+                  style={{ width: `${((qIndex + 1) / QUESTIONS.length) * 100}%` }}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+                <aside className="lg:col-span-4 xl:col-span-3 rounded-[24px] bg-[#071D43] text-white p-5 sm:p-6 shadow-[0_18px_50px_rgba(6,25,58,.14)] h-fit">
+                  <div className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-white/45 mb-4">Değerlendirme Boyutları</div>
+                  <div className="space-y-2">
+                    {DIMENSIONS.map((d, i) => {
+                      const dimQuestions = QUESTIONS.filter((q) => q.dim === d.key);
+                      const answeredCount = dimQuestions.filter((q) => answers[q.id]).length;
+                      const active = currentQ.dim === d.key;
+                      const complete = answeredCount === dimQuestions.length;
+                      return (
+                        <div key={d.key} className={`rounded-xl px-3 py-3 flex items-center gap-3 border transition-all ${active ? "bg-[#F2B90A] border-[#F2B90A] text-[#071A3C]" : "bg-white/[0.04] border-white/[0.07] text-white/75"}`}>
+                          <span className={`w-8 h-8 rounded-lg flex items-center justify-center text-[10px] font-extrabold ${active ? "bg-[#071A3C]/10" : "bg-white/[0.06]"}`}>
+                            {complete ? "✓" : `0${i + 1}`}
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <div className="text-xs font-bold truncate">{d.short}</div>
+                            <div className={`text-[9px] mt-0.5 ${active ? "text-[#071A3C]/60" : "text-white/35"}`}>{answeredCount}/4 yanıt</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </aside>
+
+                <div className="lg:col-span-8 xl:col-span-9 rounded-[24px] bg-white/95 backdrop-blur border border-[#DCE4EF] shadow-[0_18px_50px_rgba(11,35,74,.08)] p-5 sm:p-7 lg:p-9">
+                  <div className="flex items-center justify-between gap-4 mb-5">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-[#FFF6D7] text-[#9B6C00] border border-[#F2D77F] px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.12em]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#E2A600]" />
+                      {DIMENSIONS.find((d) => d.key === currentQ.dim)?.label}
+                    </span>
+                    <span className="hidden sm:inline text-[10px] text-slate-400 font-semibold uppercase tracking-[0.1em]">En uygun seçeneği işaretleyin</span>
+                  </div>
+
+                  <h3 className="text-[22px] sm:text-[28px] lg:text-[30px] leading-[1.22] font-extrabold text-[#0B234A] tracking-[-0.035em] max-w-4xl" style={{ fontFamily: "'Manrope', sans-serif" }}>
+                    {currentQ.text}
+                  </h3>
+
+                  <div className="mt-7 space-y-3">
+                    {currentQ.options.map((opt, i) => (
+                      <button
+                        key={i}
+                        onClick={() => handleAnswer(i + 1)}
+                        className="w-full text-left rounded-2xl border border-[#DDE5EF] bg-[#FBFCFE] hover:bg-[#071D43] hover:border-[#071D43] hover:text-white p-4 sm:p-4.5 transition-all duration-200 flex items-center gap-4 group hover:-translate-y-[1px] hover:shadow-[0_10px_25px_rgba(6,25,58,.10)]"
+                      >
+                        <span className="w-10 h-10 flex-shrink-0 rounded-xl border border-[#D8E1EC] bg-white text-[#0B234A] group-hover:border-[#F2B90A] group-hover:bg-[#F2B90A] flex items-center justify-center text-xs font-extrabold transition-colors">
+                          {i + 1}
+                        </span>
+                        <span className="text-sm sm:text-[15px] font-semibold leading-relaxed text-slate-700 group-hover:text-white transition-colors">
+                          {opt}
+                        </span>
+                        <span className="ml-auto text-slate-300 group-hover:text-[#F2B90A] text-xl transition-colors">→</span>
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 pt-5 border-t border-[#E6EBF2] flex items-center justify-between gap-4">
+                    {qIndex > 0 ? (
+                      <button
+                        onClick={() => setQIndex(qIndex - 1)}
+                        className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-[#0B234A] transition-colors"
+                      >
+                        ← Önceki soruya dön
+                      </button>
+                    ) : <span />}
+                    <span className="text-[10px] text-slate-400 text-right">Yanıtınız otomatik olarak kaydedilir.</span>
+                  </div>
                 </div>
-              )}
-            </div>
+              </div>
+            </section>
           )}
 
-          {/* ---------------- CONTACT (Sonuç/PDF öncesi zorunlu) ---------------- */}
+          {/* ---------------- CONTACT ---------------- */}
           {step === "contact" && (
-            <div className="max-w-2xl mx-auto">
-              <div className="border-b border-slate-900/10 pb-4 mb-6">
-                <span className="font-mono text-[11px] uppercase tracking-widest text-amber-700 block mb-1 font-bold">// SON ADIM</span>
-                <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 uppercase leading-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                  Sonucunuzu görmek için bilgilerinizi girin
-                </h2>
-                <p className="text-slate-600 text-xs md:text-sm mt-2 leading-relaxed">
-                  Değerlendirme sonucunuz ve PDF raporunuz, aşağıdaki bilgiler kaydedildikten sonra
-                  görüntülenecektir. Bu bilgiler yalnızca Çorlu TSO tarafından ilerleyen süreçte
-                  gelişiminizi takip etmek amacıyla kullanılacaktır.
-                </p>
+            <section className="max-w-4xl mx-auto">
+              <div className="rounded-[26px] overflow-hidden border border-[#DCE4EF] bg-white/95 backdrop-blur shadow-[0_24px_70px_rgba(11,35,74,.10)]">
+                <div className="bg-[#071D43] p-6 sm:p-8 text-white relative overflow-hidden">
+                  <div className="absolute right-0 top-0 w-72 h-72 rounded-full border border-[#F2B90A]/10 translate-x-1/3 -translate-y-1/3" />
+                  <div className="relative flex items-start gap-4">
+                    <div className="w-12 h-12 flex-shrink-0 rounded-2xl bg-[#F2B90A] text-[#071A3C] flex items-center justify-center font-black text-xl">✓</div>
+                    <div>
+                      <span className="text-[#F2B90A] text-[10px] font-extrabold uppercase tracking-[0.16em]">Değerlendirme Tamamlandı</span>
+                      <h2 className="mt-1 text-2xl sm:text-3xl font-extrabold tracking-[-0.04em]" style={{ fontFamily: "'Manrope', sans-serif" }}>
+                        Sonuç raporunuzu hazırlıyoruz
+                      </h2>
+                      <p className="mt-2 text-white/65 text-xs sm:text-sm leading-relaxed max-w-2xl">
+                        Sonucunuzu ve PDF raporunuzu görüntülemek için aşağıdaki iletişim bilgilerini tamamlayın.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <form onSubmit={handleContactSubmit} className="p-6 sm:p-8 space-y-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="md:col-span-2">
+                      <label className="text-[11px] font-bold text-[#0B234A] block mb-2">Firma Adı *</label>
+                      <input
+                        type="text"
+                        value={contact.companyName}
+                        onChange={handleContactChange("companyName")}
+                        className={`w-full rounded-xl px-4 py-3.5 bg-[#F8FAFD] border text-sm outline-none transition focus:bg-white focus:ring-4 focus:ring-[#F2B90A]/10 ${contactErrors.companyName ? "border-red-500" : "border-[#D8E1EC] focus:border-[#D6A20A]"}`}
+                        placeholder="Örn. ABC Tekstil San. ve Tic. A.Ş."
+                      />
+                      {contactErrors.companyName && <p className="text-red-600 text-[11px] mt-1.5">{contactErrors.companyName}</p>}
+                    </div>
+
+                    <div>
+                      <label className="text-[11px] font-bold text-[#0B234A] block mb-2">Ad Soyad *</label>
+                      <input
+                        type="text"
+                        value={contact.contactName}
+                        onChange={handleContactChange("contactName")}
+                        className={`w-full rounded-xl px-4 py-3.5 bg-[#F8FAFD] border text-sm outline-none transition focus:bg-white focus:ring-4 focus:ring-[#F2B90A]/10 ${contactErrors.contactName ? "border-red-500" : "border-[#D8E1EC] focus:border-[#D6A20A]"}`}
+                        placeholder="Yetkili adı soyadı"
+                      />
+                      {contactErrors.contactName && <p className="text-red-600 text-[11px] mt-1.5">{contactErrors.contactName}</p>}
+                    </div>
+
+                    <div>
+                      <label className="text-[11px] font-bold text-[#0B234A] block mb-2">Telefon *</label>
+                      <input
+                        type="tel"
+                        value={contact.phone}
+                        onChange={handleContactChange("phone")}
+                        className={`w-full rounded-xl px-4 py-3.5 bg-[#F8FAFD] border text-sm outline-none transition focus:bg-white focus:ring-4 focus:ring-[#F2B90A]/10 ${contactErrors.phone ? "border-red-500" : "border-[#D8E1EC] focus:border-[#D6A20A]"}`}
+                        placeholder="05XX XXX XX XX"
+                      />
+                      {contactErrors.phone && <p className="text-red-600 text-[11px] mt-1.5">{contactErrors.phone}</p>}
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <label className="text-[11px] font-bold text-[#0B234A] block mb-2">E-posta *</label>
+                      <input
+                        type="email"
+                        value={contact.email}
+                        onChange={handleContactChange("email")}
+                        className={`w-full rounded-xl px-4 py-3.5 bg-[#F8FAFD] border text-sm outline-none transition focus:bg-white focus:ring-4 focus:ring-[#F2B90A]/10 ${contactErrors.email ? "border-red-500" : "border-[#D8E1EC] focus:border-[#D6A20A]"}`}
+                        placeholder="ornek@firma.com"
+                      />
+                      {contactErrors.email && <p className="text-red-600 text-[11px] mt-1.5">{contactErrors.email}</p>}
+                    </div>
+                  </div>
+
+                  {submitError && (
+                    <p className="text-red-700 text-xs bg-red-50 border border-red-200 rounded-xl p-3.5">{submitError}</p>
+                  )}
+
+                  <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
+                    <div className="text-[10px] text-slate-400 leading-relaxed flex-1">
+                      Bilgileriniz yalnızca Çorlu TSO tarafından değerlendirme ve gelişim takibi amacıyla kullanılacaktır.
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className={`w-full sm:w-auto min-w-[230px] rounded-xl py-3.5 px-6 text-sm font-extrabold transition-all duration-200 ${
+                        submitting ? "bg-slate-200 text-slate-500 cursor-wait" : "bg-[#F2B90A] hover:bg-[#FFD04A] text-[#071A3C] hover:-translate-y-0.5 shadow-[0_10px_22px_rgba(242,185,10,.22)]"
+                      }`}
+                    >
+                      {submitting ? "Kaydediliyor..." : "Sonucumu Görüntüle →"}
+                    </button>
+                  </div>
+                </form>
               </div>
-
-              <form onSubmit={handleContactSubmit} className="space-y-4">
-                <div>
-                  <label className="font-mono text-[10px] uppercase tracking-widest text-slate-500 block mb-1.5">Firma Adı *</label>
-                  <input
-                    type="text"
-                    value={contact.companyName}
-                    onChange={handleContactChange("companyName")}
-                    className={`w-full p-3.5 bg-white/80 border text-sm focus:outline-none focus:border-slate-900 ${contactErrors.companyName ? "border-red-600" : "border-slate-900/15"}`}
-                    placeholder="Örn. ABC Tekstil San. ve Tic. A.Ş."
-                  />
-                  {contactErrors.companyName && <p className="text-red-700 text-[11px] mt-1">{contactErrors.companyName}</p>}
-                </div>
-
-                <div>
-                  <label className="font-mono text-[10px] uppercase tracking-widest text-slate-500 block mb-1.5">Ad Soyad *</label>
-                  <input
-                    type="text"
-                    value={contact.contactName}
-                    onChange={handleContactChange("contactName")}
-                    className={`w-full p-3.5 bg-white/80 border text-sm focus:outline-none focus:border-slate-900 ${contactErrors.contactName ? "border-red-600" : "border-slate-900/15"}`}
-                    placeholder="Yetkili adı soyadı"
-                  />
-                  {contactErrors.contactName && <p className="text-red-700 text-[11px] mt-1">{contactErrors.contactName}</p>}
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="font-mono text-[10px] uppercase tracking-widest text-slate-500 block mb-1.5">E-posta *</label>
-                    <input
-                      type="email"
-                      value={contact.email}
-                      onChange={handleContactChange("email")}
-                      className={`w-full p-3.5 bg-white/80 border text-sm focus:outline-none focus:border-slate-900 ${contactErrors.email ? "border-red-600" : "border-slate-900/15"}`}
-                      placeholder="ornek@firma.com"
-                    />
-                    {contactErrors.email && <p className="text-red-700 text-[11px] mt-1">{contactErrors.email}</p>}
-                  </div>
-                  <div>
-                    <label className="font-mono text-[10px] uppercase tracking-widest text-slate-500 block mb-1.5">Telefon *</label>
-                    <input
-                      type="tel"
-                      value={contact.phone}
-                      onChange={handleContactChange("phone")}
-                      className={`w-full p-3.5 bg-white/80 border text-sm focus:outline-none focus:border-slate-900 ${contactErrors.phone ? "border-red-600" : "border-slate-900/15"}`}
-                      placeholder="05XX XXX XX XX"
-                    />
-                    {contactErrors.phone && <p className="text-red-700 text-[11px] mt-1">{contactErrors.phone}</p>}
-                  </div>
-                </div>
-
-                {submitError && (
-                  <p className="text-red-700 text-xs bg-red-50 border border-red-200 p-3">{submitError}</p>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className={`w-full font-mono text-xs uppercase tracking-widest py-4 px-6 transition duration-300 text-center font-bold ${
-                    submitting ? "bg-slate-300 text-slate-500 cursor-wait" : "bg-slate-900 hover:bg-amber-800 text-white"
-                  }`}
-                >
-                  {submitting ? "KAYDEDİLİYOR..." : "SONUCUMU GÖRÜNTÜLE →"}
-                </button>
-              </form>
-            </div>
+            </section>
           )}
 
           {/* ---------------- RESULTS ---------------- */}
           {step === "results" && (
-            <div className="max-w-6xl mx-auto h-full flex flex-col">
-              <div className="border-b border-slate-900/10 pb-2.5 mb-3 flex-shrink-0">
-                <div className="flex items-end justify-between gap-4 flex-wrap">
+            <section className="max-w-7xl mx-auto space-y-5">
+              <div className="rounded-[26px] bg-[#071D43] text-white p-6 sm:p-8 shadow-[0_24px_70px_rgba(6,25,58,.16)] relative overflow-hidden">
+                <div className="absolute -right-28 -top-28 w-80 h-80 rounded-full border border-[#F2B90A]/10" />
+                <div className="absolute -right-14 -top-14 w-56 h-56 rounded-full border border-[#F2B90A]/10" />
+                <div className="relative flex flex-col lg:flex-row lg:items-end justify-between gap-5">
                   <div>
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-amber-700 block mb-0.5 font-bold">// NİHAİ DEĞERLENDİRME</span>
-                    <h2 className="text-xl md:text-2xl font-extrabold tracking-tight uppercase text-slate-900 leading-none" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                    <span className="text-[#F2B90A] text-[10px] font-extrabold uppercase tracking-[0.16em]">Nihai Verimlilik Değerlendirmesi</span>
+                    <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-[-0.045em]" style={{ fontFamily: "'Manrope', sans-serif" }}>
                       {level.name}
                     </h2>
+                    <p className="mt-2 text-white/65 text-xs sm:text-sm leading-relaxed max-w-3xl">{level.desc}</p>
                   </div>
-                  <div className="font-mono text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 leading-none">
-                    {Math.round(overall)}<span className="text-xs text-slate-400">/100</span>
+                  <div className="flex items-end gap-3 flex-shrink-0">
+                    <div className="text-5xl sm:text-6xl font-extrabold tracking-[-0.06em] leading-none text-white" style={{ fontFamily: "'Manrope', sans-serif" }}>
+                      {Math.round(overall)}
+                    </div>
+                    <div className="pb-1.5">
+                      <div className="text-sm text-white/45 font-semibold">/100</div>
+                      <div className="text-[10px] text-[#F2B90A] font-bold uppercase tracking-[0.1em] mt-1">Genel Skor</div>
+                    </div>
                   </div>
                 </div>
-                <p className="text-slate-600 text-xs mt-1.5 leading-snug">
-                  {level.desc}
-                </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-3 flex-1 min-h-0">
-                {/* SOL: Gauge + Radar + Boyut Skorları */}
-                <div className="md:col-span-5 bg-white border border-slate-900/10 p-3 flex flex-col min-h-0">
-                  <div className="grid grid-cols-2 gap-2 flex-shrink-0 border-b border-slate-900/10 pb-2 mb-2">
-                    <div className="text-center">
-                      <Gauge value={overall} color={level.color} maxWidth={170} />
-                      <div className="font-mono text-[8px] uppercase tracking-widest text-slate-400 mt-0.5">GENEL SKOR</div>
-                    </div>
-                    <RadarChart byDim={byDim} color={level.color} maxWidth={190} />
-                  </div>
-                  <div className="space-y-2.5 overflow-y-auto min-h-0 flex-1 flex flex-col justify-center">
-                    {DIMENSIONS.map((d) => (
-                      <div key={d.key}>
-                        <div className="flex justify-between font-mono text-[9px] uppercase tracking-widest mb-0.5">
-                          <span className="font-bold text-slate-900">{d.short}</span>
-                          <span className="text-slate-500">%{Math.round(byDim[d.key])}</span>
-                        </div>
-                        <div className="w-full bg-slate-200 h-1 rounded-none overflow-hidden">
-                          <div className="bg-slate-900 h-1 transition-all duration-1000" style={{ width: `${byDim[d.key]}%` }} />
-                        </div>
+              <div className="grid grid-cols-1 xl:grid-cols-12 gap-5">
+                <div className="xl:col-span-7 space-y-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="rounded-[24px] bg-white border border-[#DCE4EF] p-5 sm:p-6 shadow-[0_14px_40px_rgba(11,35,74,.06)]">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-sm font-extrabold text-[#0B234A]">Genel Verimlilik Skoru</h3>
+                        <span className="rounded-full px-2.5 py-1 text-[10px] font-bold" style={{ color: level.color, backgroundColor: `${level.color}14` }}>{level.name}</span>
                       </div>
-                    ))}
+                      <Gauge value={overall} color={level.color} maxWidth={250} />
+                    </div>
+
+                    <div className="rounded-[24px] bg-white border border-[#DCE4EF] p-5 sm:p-6 shadow-[0_14px_40px_rgba(11,35,74,.06)]">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-sm font-extrabold text-[#0B234A]">Boyut Haritası</h3>
+                        <span className="text-[10px] font-semibold text-slate-400">6 boyut</span>
+                      </div>
+                      <RadarChart byDim={byDim} color={level.color} maxWidth={260} />
+                    </div>
+                  </div>
+
+                  <div className="rounded-[24px] bg-white border border-[#DCE4EF] p-5 sm:p-6 shadow-[0_14px_40px_rgba(11,35,74,.06)]">
+                    <div className="flex items-center justify-between gap-4 mb-5">
+                      <div>
+                        <span className="text-[#B98300] text-[9px] font-extrabold uppercase tracking-[0.14em]">Performans Profili</span>
+                        <h3 className="text-lg font-extrabold text-[#0B234A] mt-1" style={{ fontFamily: "'Manrope', sans-serif" }}>Boyut Bazlı Skorlar</h3>
+                      </div>
+                      <span className="text-[10px] text-slate-400">0–100 ölçeği</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-7 gap-y-4">
+                      {DIMENSIONS.map((d, i) => {
+                        const score = Math.round(byDim[d.key]);
+                        const scoreLevel = getLevel(byDim[d.key]);
+                        return (
+                          <div key={d.key} className="rounded-2xl bg-[#F8FAFD] border border-[#E5EAF1] p-4">
+                            <div className="flex items-center gap-3 mb-3">
+                              <span className="w-9 h-9 rounded-xl flex items-center justify-center bg-[#0B234A] text-white text-[10px] font-extrabold">0{i + 1}</span>
+                              <div className="flex-1 min-w-0">
+                                <div className="text-xs font-bold text-[#0B234A] truncate">{d.label}</div>
+                                <div className="text-[9px] text-slate-400 mt-0.5 truncate">{d.ref}</div>
+                              </div>
+                              <div className="text-right">
+                                <div className="text-base font-extrabold text-[#0B234A] leading-none">{score}<span className="text-[9px] text-slate-400 font-semibold">/100</span></div>
+                                <div className="text-[8px] font-bold mt-1" style={{ color: scoreLevel.color }}>{scoreLevel.name.split(" /")[0]}</div>
+                              </div>
+                            </div>
+                            <div className="h-2 rounded-full bg-[#E6EBF2] overflow-hidden">
+                              <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${byDim[d.key]}%`, backgroundColor: scoreLevel.color }} />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
 
-                {/* SAĞ: Öncelikli Aksiyonlar */}
-                <div className="md:col-span-7 bg-white border border-slate-900/10 p-3 flex flex-col min-h-0">
-                  <h3 className="font-mono text-[10px] uppercase tracking-widest text-slate-400 mb-2 flex-shrink-0">// ÖNCELİKLİ AKSİYONLAR VE SENARYO</h3>
-                  <div className="space-y-2.5 overflow-y-auto min-h-0">
-                    {weakestDims.map((d) => (
-                      <div key={d.key} className="border-l-2 border-slate-900 pl-2.5 py-0.5">
-                        <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                          <span className="font-mono text-[9px] uppercase tracking-widest text-amber-700 font-bold">{d.label}</span>
-                          <span className="font-mono text-[8px] uppercase px-1.5 py-0.5 bg-slate-200 text-slate-800 font-bold">
-                            {d.dLevel.name}
-                          </span>
+                <div className="xl:col-span-5 rounded-[24px] bg-[#071D43] text-white p-5 sm:p-6 shadow-[0_18px_50px_rgba(6,25,58,.14)] flex flex-col">
+                  <div className="flex items-start justify-between gap-4 mb-5">
+                    <div>
+                      <span className="text-[#F2B90A] text-[9px] font-extrabold uppercase tracking-[0.14em]">İyileştirme Rotası</span>
+                      <h3 className="text-xl font-extrabold mt-1 tracking-[-0.035em]" style={{ fontFamily: "'Manrope', sans-serif" }}>Öncelikli 3 aksiyon alanı</h3>
+                    </div>
+                    <div className="w-10 h-10 rounded-xl bg-[#F2B90A]/10 border border-[#F2B90A]/20 text-[#F2B90A] flex items-center justify-center text-lg">↗</div>
+                  </div>
+
+                  <div className="space-y-3 flex-1 productivity-scroll overflow-y-auto pr-1 max-h-[650px]">
+                    {weakestDims.map((d, idx) => (
+                      <div key={d.key} className="rounded-2xl border border-white/10 bg-white/[0.055] p-4 sm:p-5">
+                        <div className="flex items-center gap-3 mb-3">
+                          <span className="w-9 h-9 rounded-full flex items-center justify-center bg-[#F2B90A] text-[#071A3C] text-sm font-extrabold">{idx + 1}</span>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm font-bold">{d.label}</div>
+                            <div className="text-[9px] text-[#F2B90A] mt-0.5 uppercase tracking-[0.08em] font-semibold">{d.dLevel.name}</div>
+                          </div>
                         </div>
-                        <p className="text-[11px] text-slate-600 leading-snug mb-1">{d.scenario.scenario}</p>
-                        <ul className="space-y-0.5">
+                        <p className="text-[11px] sm:text-xs text-white/62 leading-relaxed mb-3">{d.scenario.scenario}</p>
+                        <ul className="space-y-2.5">
                           {d.scenario.actions.map((act, i) => (
-                            <li key={i} className="text-[10.5px] text-slate-700 flex gap-1.5 leading-snug">
-                              <span className="font-mono text-slate-400 font-bold">0{i + 1}.</span>
+                            <li key={i} className="flex gap-2.5 text-[11px] text-white/80 leading-relaxed">
+                              <span className="mt-0.5 w-5 h-5 rounded-md bg-white/[0.07] text-[#F2B90A] flex-shrink-0 flex items-center justify-center text-[9px] font-extrabold">{i + 1}</span>
                               <span>{act}</span>
                             </li>
                           ))}
@@ -1085,31 +1331,31 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 print:hidden flex-shrink-0 mt-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 print:hidden">
                 <button
                   onClick={handleDownloadPdf}
                   disabled={pdfState === "generating"}
-                  className="bg-slate-900 hover:bg-amber-800 disabled:opacity-60 text-white font-mono text-xs uppercase tracking-widest py-3 px-6 transition duration-200 font-bold"
+                  className="rounded-xl bg-[#F2B90A] hover:bg-[#FFD04A] disabled:opacity-60 text-[#071A3C] font-extrabold text-sm py-3.5 px-6 transition-all shadow-[0_10px_22px_rgba(242,185,10,.17)]"
                 >
-                  {pdfState === "generating" ? "RAPOR HAZIRLANIYOR..." : "PDF RAPORU İNDİR →"}
+                  {pdfState === "generating" ? "Rapor hazırlanıyor..." : "PDF Raporunu İndir →"}
                 </button>
                 <button
                   onClick={restart}
-                  className="border border-slate-900 hover:bg-slate-900 hover:text-white text-slate-900 font-mono text-xs uppercase tracking-widest py-3 px-6 transition duration-200 font-bold"
+                  className="rounded-xl border border-[#C9D4E2] bg-white hover:bg-[#071D43] hover:border-[#071D43] hover:text-white text-[#0B234A] font-extrabold text-sm py-3.5 px-6 transition-all"
                 >
-                  YENİDEN BAŞLAT
+                  Yeni Değerlendirme Başlat
                 </button>
               </div>
-            </div>
+            </section>
           )}
-
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-900/10 px-8 py-3 font-mono text-[10px] uppercase tracking-widest text-slate-500 flex justify-between items-center flex-shrink-0 relative z-10 bg-[#FAF9F6]/80 backdrop-blur-md print:hidden">
-        <span>ÇORLU TSO © 2026</span>
-        <span>VERİMLİLİK SKORU</span>
+      <footer className="relative z-20 bg-white/78 backdrop-blur-xl border-t border-[#DDE5EF] print:hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] text-slate-400 font-semibold">
+          <span>© 2026 Çorlu Ticaret ve Sanayi Odası</span>
+          <span className="uppercase tracking-[0.12em]">Dijital Dönüşüm Portalı · Verimlilik Ölçüm Aracı</span>
+        </div>
       </footer>
 
       {showMethodology && <MethodologyModal onClose={() => setShowMethodology(false)} />}

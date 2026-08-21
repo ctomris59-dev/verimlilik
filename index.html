@@ -23,8 +23,9 @@
     --radius:10px;
   }
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;height:100%;}
   body{padding:0 0 60px;}
+  body.locked{overflow:hidden;padding:0;height:100%;}
   .wrap{max-width:920px;margin:0 auto;padding:0 20px;}
 
   /* HERO */
@@ -63,6 +64,24 @@
   .progress-track{height:3px;background:var(--panel-2);border-radius:2px;overflow:hidden;}
   .progress-fill{height:100%;background:linear-gradient(90deg,var(--amber-dim),var(--amber));width:0%;transition:width .3s ease;}
   .progress-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);margin-top:6px;display:flex;justify-content:space-between;}
+
+  /* FULL-SCREEN QUIZ (tek soru, tam sayfa, scroll yok) */
+  .quiz-screen{position:fixed;inset:0;background:var(--bg);z-index:30;display:none;flex-direction:column;}
+  .quiz-top{flex:none;padding-top:16px;}
+  .quiz-body{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;}
+  .quiz-body-inner{max-width:720px;width:100%;}
+  .quiz-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);font-weight:600;}
+  .quiz-meta{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:22px;flex-wrap:wrap;gap:6px;}
+  .quiz-counter{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim);}
+  .quiz-question{font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:700;font-size:clamp(20px,3.4vw,32px);line-height:1.18;margin:0 0 26px;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;}
+  .quiz-opt{width:100%;text-align:left;padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:8px;cursor:pointer;display:flex;gap:14px;align-items:center;font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink);transition:border-color .12s ease, background .12s ease, color .12s ease;}
+  .quiz-opt:hover{border-color:var(--amber);background:#FBF3E7;}
+  .quiz-opt .n{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--ink-dim);flex:none;}
+  .quiz-opt:hover .n{color:var(--amber);}
+  .quiz-bottom{flex:none;padding-bottom:18px;}
+  .link-back{background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-dim);cursor:pointer;padding:10px 0;}
+  .link-back:hover{color:var(--ink);}
 
   /* CATEGORY SECTIONS */
   .cat{margin-top:30px;padding-top:6px;}
@@ -144,17 +163,24 @@
     </div>
   </div>
 
-  <div id="progressShell" class="progress-shell" style="display:none;">
-    <div class="wrap" style="padding:0;">
+  <div id="quizScreen" class="quiz-screen">
+    <div class="quiz-top wrap">
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
       <div class="progress-label"><span id="progressText">0 / 24 yanıtlandı</span><span id="progressCat">İş Gücü Kayıpları</span></div>
     </div>
-  </div>
-
-  <form id="form" style="display:none;"></form>
-
-  <div style="display:none;text-align:center;margin-top:10px;" id="submitWrap">
-    <button class="btn" id="calcBtn">Skoru Hesapla</button>
+    <div class="quiz-body">
+      <div class="quiz-body-inner wrap">
+        <div class="quiz-meta">
+          <span class="quiz-eyebrow" id="quizEyebrow">// BOYUT: İŞ GÜCÜ KAYIPLARI</span>
+          <span class="quiz-counter" id="quizCounter">SORU 1 / 24</span>
+        </div>
+        <h2 class="quiz-question" id="quizQuestionText"></h2>
+        <div class="quiz-options" id="quizOptions"></div>
+      </div>
+    </div>
+    <div class="quiz-bottom wrap">
+      <button class="link-back" id="prevBtn" style="display:none;">← ÖNCEKİ SORUYA DÖN</button>
+    </div>
   </div>
 
   <div class="gate" id="contactGate" style="display:none;max-width:520px;margin-left:auto;margin-right:auto;">
@@ -326,24 +352,16 @@ const LIKERT = [
 
 const WEIGHTS = {isgucu:1, surec:1, uretim:1.15, stok:0.95, enerji:0.95, zaman:1};
 
-const form = document.getElementById('form');
-let totalQ = 0;
-CATEGORIES.forEach((cat, ci)=>{
-  const section = document.createElement('div');
-  section.className='cat';
-  section.innerHTML = `<div class="cat-head"><span class="cat-num">0${ci+1}</span><span class="cat-title">${cat.title}</span></div><div class="cat-desc">${cat.desc}</div>`;
+/* ---------------- Düz soru listesi + tam sayfa tek-soru akışı ---------------- */
+const FLAT_QUESTIONS = [];
+CATEGORIES.forEach(cat=>{
   cat.questions.forEach((q, qi)=>{
-    totalQ++;
-    const name = `${cat.key}_${qi}`;
-    const qDiv = document.createElement('div');
-    qDiv.className='q';
-    qDiv.innerHTML = `<div class="q-text">${q}</div><div class="scale">${LIKERT.map(l=>`
-      <label class="opt"><input type="radio" name="${name}" value="${l.v}" data-cat="${cat.key}"><span>${l.label}</span></label>
-    `).join('')}</div>`;
-    section.appendChild(qDiv);
+    FLAT_QUESTIONS.push({ key:`${cat.key}_${qi}`, catKey:cat.key, catTitle:cat.title, text:q });
   });
-  form.appendChild(section);
 });
+const TOTAL_Q = FLAT_QUESTIONS.length;
+let currentIndex = 0;
+const answers = {};
 
 document.getElementById('consent').addEventListener('change', e=>{
   document.getElementById('startBtn').disabled = !e.target.checked;
@@ -351,26 +369,53 @@ document.getElementById('consent').addEventListener('change', e=>{
 
 document.getElementById('startBtn').addEventListener('click', ()=>{
   document.getElementById('gate').style.display='none';
-  form.style.display='block';
-  document.getElementById('progressShell').style.display='block';
-  document.getElementById('submitWrap').style.display='block';
-  updateProgress();
+  document.body.classList.add('locked');
+  document.getElementById('quizScreen').style.display='flex';
+  currentIndex = 0;
+  showQuestion(0);
 });
 
-form.addEventListener('change', updateProgress);
+document.getElementById('prevBtn').addEventListener('click', ()=>{
+  if(currentIndex > 0){
+    currentIndex--;
+    showQuestion(currentIndex);
+  }
+});
 
-function updateProgress(){
-  const answered = form.querySelectorAll('input[type=radio]:checked').length;
-  document.getElementById('progressFill').style.width = (answered/totalQ*100)+'%';
-  document.getElementById('progressText').textContent = `${answered} / ${totalQ} yanıtlandı`;
-  document.getElementById('calcBtn').disabled = answered < totalQ;
+function showQuestion(idx){
+  const q = FLAT_QUESTIONS[idx];
+  document.getElementById('quizEyebrow').textContent = `// BOYUT: ${q.catTitle.toUpperCase()}`;
+  document.getElementById('quizCounter').textContent = `SORU ${idx+1} / ${TOTAL_Q}`;
+  document.getElementById('quizQuestionText').textContent = q.text;
+
+  const optsWrap = document.getElementById('quizOptions');
+  optsWrap.innerHTML = LIKERT.map((l,i)=>`
+    <button type="button" class="quiz-opt" data-value="${l.v}"><span class="n">[0${i+1}]</span><span>${l.label}</span></button>
+  `).join('');
+  optsWrap.querySelectorAll('.quiz-opt').forEach(btn=>{
+    btn.addEventListener('click', ()=> handleAnswer(parseInt(btn.dataset.value)));
+  });
+
+  document.getElementById('prevBtn').style.display = idx > 0 ? 'inline-block' : 'none';
+
+  const answeredCount = Object.keys(answers).length;
+  document.getElementById('progressFill').style.width = (idx/TOTAL_Q*100)+'%';
+  document.getElementById('progressText').textContent = `${answeredCount} / ${TOTAL_Q} yanıtlandı`;
+  document.getElementById('progressCat').textContent = q.catTitle;
 }
 
-document.getElementById('calcBtn').addEventListener('click', ()=>{
-  const answered = form.querySelectorAll('input[type=radio]:checked').length;
-  if(answered < totalQ){ alert('Lütfen tüm soruları yanıtlayın.'); return; }
-  calculate();
-});
+function handleAnswer(value){
+  const q = FLAT_QUESTIONS[currentIndex];
+  answers[q.key] = value;
+  if(currentIndex < TOTAL_Q - 1){
+    currentIndex++;
+    showQuestion(currentIndex);
+  } else {
+    document.body.classList.remove('locked');
+    document.getElementById('quizScreen').style.display='none';
+    calculate();
+  }
+}
 
 document.getElementById('retakeBtn').addEventListener('click', ()=>location.reload());
 
@@ -386,13 +431,10 @@ function getTierInfo(score){
 
 function calculate(){
   const catScores = {};
-  const answers = {};
   CATEGORIES.forEach(cat=>{
     let sum=0;
     cat.questions.forEach((q, qi)=>{
-      const val = parseInt(form.querySelector(`input[name="${cat.key}_${qi}"]:checked`).value);
-      answers[`${cat.key}_${qi}`] = val;
-      sum += val;
+      sum += answers[`${cat.key}_${qi}`];
     });
     const avg = sum / cat.questions.length; // 1-5
     catScores[cat.key] = ((avg-1)/4)*100; // 0-100
@@ -409,9 +451,6 @@ function calculate(){
   lastOverall = overall;
   lastAnswers = answers;
 
-  form.style.display='none';
-  document.getElementById('submitWrap').style.display='none';
-  document.getElementById('progressShell').style.display='none';
   document.getElementById('contactGate').style.display='block';
   document.getElementById('contactGate').scrollIntoView({behavior:'smooth'});
 }
