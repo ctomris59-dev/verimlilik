@@ -841,7 +841,7 @@ export default function App() {
                 </span>
                 <span className="hidden md:inline w-1.5 h-1.5 rounded-full bg-white/[0.45]" />
                 <span className="hidden md:inline text-white/60 text-[10px] font-bold uppercase tracking-[0.16em]">
-                  Dijital Dönüşüm Portalı
+                  Üye Dönüşüm Portalı
                 </span>
               </div>
               <h1 className="text-white text-lg sm:text-[25px] font-extrabold tracking-[-0.035em] leading-tight mt-0.5 truncate" style={{ fontFamily: "'Manrope', sans-serif" }}>
@@ -1355,7 +1355,7 @@ export default function App() {
       <footer className="relative z-20 bg-white/[0.78] backdrop-blur-xl border-t border-[#DDE5EF] print:hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] text-slate-400 font-semibold">
           <span>© 2026 Çorlu Ticaret ve Sanayi Odası</span>
-          <span className="uppercase tracking-[0.12em]">Dijital Dönüşüm Portalı · Verimlilik Ölçüm Aracı</span>
+          <span className="uppercase tracking-[0.12em]">Üye Dönüşüm Portalı · Verimlilik Ölçüm Aracı</span>
         </div>
       </footer>
 
