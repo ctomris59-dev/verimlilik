@@ -6,6 +6,7 @@
 <title>Verimlilik Skoru | Çorlu TSO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
   :root{
     --bg:#FAF9F6;
@@ -45,6 +46,17 @@
   .btn:disabled{background:#E2E8F0;color:#94A3B8;cursor:not-allowed;}
   .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink);}
   .btn.ghost:hover{border-color:var(--amber);color:var(--amber);}
+
+  /* CONTACT GATE */
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-dim);margin-bottom:5px;}
+  .field input{width:100%;padding:11px 12px;background:var(--panel);border:1px solid var(--line);border-radius:6px;font-size:14px;font-family:'IBM Plex Sans',sans-serif;color:var(--ink);box-sizing:border-box;}
+  .field input:focus{outline:none;border-color:var(--amber);}
+  .field.error input{border-color:var(--red);}
+  .field-error{color:var(--red);font-size:11px;margin-top:4px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:600px){.field-row{grid-template-columns:1fr;}}
+  .contact-error{color:var(--red);font-size:12.5px;background:rgba(185,28,28,.08);border:1px solid rgba(185,28,28,.25);border-radius:6px;padding:10px 12px;margin-bottom:14px;}
 
   /* PROGRESS */
   .progress-shell{position:sticky;top:0;background:var(--bg);z-index:5;padding:10px 0 6px;border-bottom:1px solid var(--line);}
@@ -145,6 +157,35 @@
     <button class="btn" id="calcBtn">Skoru Hesapla</button>
   </div>
 
+  <div class="gate" id="contactGate" style="display:none;max-width:520px;margin-left:auto;margin-right:auto;">
+    <p style="margin:0 0 4px;"><strong style="color:var(--ink);">Son adım.</strong> Sonucunuzu ve öncelik raporunuzu görüntülemeden önce iletişim bilgilerinizi girin.</p>
+    <p>Bu bilgiler yalnızca Çorlu TSO tarafından ilerleyen süreçte gelişiminizi takip etmek amacıyla kullanılacak, güvenli bir veritabanında saklanacak ve üçüncü taraflarla paylaşılmayacaktır.</p>
+    <div id="contactErrorBox" class="contact-error" style="display:none;"></div>
+    <div class="field" id="f-company">
+      <label>Firma Adı *</label>
+      <input type="text" id="companyName" placeholder="Örn. ABC Tekstil San. ve Tic. A.Ş.">
+      <div class="field-error" id="e-company" style="display:none;"></div>
+    </div>
+    <div class="field" id="f-contact">
+      <label>Ad Soyad *</label>
+      <input type="text" id="contactName" placeholder="Yetkili adı soyadı">
+      <div class="field-error" id="e-contact" style="display:none;"></div>
+    </div>
+    <div class="field-row">
+      <div class="field" id="f-email">
+        <label>E-posta *</label>
+        <input type="email" id="contactEmail" placeholder="ornek@firma.com">
+        <div class="field-error" id="e-email" style="display:none;"></div>
+      </div>
+      <div class="field" id="f-phone">
+        <label>Telefon *</label>
+        <input type="tel" id="contactPhone" placeholder="05XX XXX XX XX">
+        <div class="field-error" id="e-phone" style="display:none;"></div>
+      </div>
+    </div>
+    <button class="btn" id="contactSubmitBtn" style="width:100%;">Sonucumu Görüntüle →</button>
+  </div>
+
   <div id="results">
     <div class="score-block">
       <div class="gauge-wrap">
@@ -198,6 +239,20 @@
 </div>
 
 <script>
+/* ---------------- Supabase yapılandırması ----------------
+   Kendi Supabase projenizin URL ve anon key değerlerini buraya girin
+   (Supabase Dashboard > Settings > API). Tabloyu oluşturmak için
+   diğer İkiz/Üye Dönüşüm araçlarınızdaki supabase_setup.sql mantığıyla
+   aynı SQL'i kullanabilirsiniz (tablo adı: verimlilik_basvurular). */
+const SUPABASE_URL = "https://hyowlbibzrgtyeddvkfl.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_-pDv1h7na_zOJgoRzJHGCQ_Zt1bfPmj";
+let sbClient = null;
+try {
+  if (window.supabase && !SUPABASE_URL.includes("xxxx")) {
+    sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+} catch (e) { console.warn("Supabase istemcisi kurulamadı:", e); }
+
 const CATEGORIES = [
   {
     key:"isgucu", title:"İş Gücü Kayıpları",
@@ -319,12 +374,24 @@ document.getElementById('calcBtn').addEventListener('click', ()=>{
 
 document.getElementById('retakeBtn').addEventListener('click', ()=>location.reload());
 
+let lastCatScores = null, lastOverall = null, lastAnswers = null;
+
+function getTierInfo(score){
+  if(score<30) return {name:"Başlangıç Seviyesi", desc:"Kayıplar sistematik ve yaygın görünüyor. Öncelik: en düşük skorlu kategorilerde hızlı, düşük maliyetli önlemlerle başlamak."};
+  if(score<50) return {name:"Gelişmekte", desc:"Bazı alanlarda kontrol sağlanmış, ancak kayıplar üretim/maliyet üzerinde hâlâ belirgin etki yaratıyor."};
+  if(score<70) return {name:"Yetkin", desc:"Süreçlerin çoğu kontrol altında; hedefli iyileştirmelerle verimlilik önemli ölçüde artırılabilir."};
+  if(score<85) return {name:"İleri Seviye", desc:"Kayıplar büyük ölçüde kontrol altında. Kalan iyileştirme alanları ince ayar ve sürekli izleme gerektiriyor."};
+  return {name:"Mükemmellik", desc:"Ölçülen boyutlarda kayıplar minimum düzeyde. Odak, mevcut performansı sürdürmeye ve öncü göstergelerle izlemeye kaymalı."};
+}
+
 function calculate(){
   const catScores = {};
+  const answers = {};
   CATEGORIES.forEach(cat=>{
     let sum=0;
     cat.questions.forEach((q, qi)=>{
       const val = parseInt(form.querySelector(`input[name="${cat.key}_${qi}"]:checked`).value);
+      answers[`${cat.key}_${qi}`] = val;
       sum += val;
     });
     const avg = sum / cat.questions.length; // 1-5
@@ -338,9 +405,19 @@ function calculate(){
   });
   const overall = Math.round(weightedSum/weightTotal);
 
+  lastCatScores = catScores;
+  lastOverall = overall;
+  lastAnswers = answers;
+
   form.style.display='none';
   document.getElementById('submitWrap').style.display='none';
   document.getElementById('progressShell').style.display='none';
+  document.getElementById('contactGate').style.display='block';
+  document.getElementById('contactGate').scrollIntoView({behavior:'smooth'});
+}
+
+function showResults(catScores, overall){
+  document.getElementById('contactGate').style.display='none';
   document.getElementById('results').style.display='block';
 
   renderGauge(overall);
@@ -351,6 +428,87 @@ function calculate(){
 
   document.getElementById('results').scrollIntoView({behavior:'smooth'});
 }
+
+function setFieldError(id, msg){
+  const field = document.getElementById(`f-${id}`);
+  const err = document.getElementById(`e-${id}`);
+  if(msg){ field.classList.add('error'); err.textContent = msg; err.style.display='block'; }
+  else { field.classList.remove('error'); err.style.display='none'; }
+}
+
+function validateContact(){
+  const company = document.getElementById('companyName').value.trim();
+  const contactName = document.getElementById('contactName').value.trim();
+  const email = document.getElementById('contactEmail').value.trim();
+  const phone = document.getElementById('contactPhone').value.trim();
+  let valid = true;
+
+  setFieldError('company', company ? '' : 'Firma adı zorunludur');
+  if(!company) valid = false;
+  setFieldError('contact', contactName ? '' : 'Ad soyad zorunludur');
+  if(!contactName) valid = false;
+  if(!email){ setFieldError('email','E-posta zorunludur'); valid=false; }
+  else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ setFieldError('email','Geçerli bir e-posta girin'); valid=false; }
+  else setFieldError('email','');
+  if(!phone){ setFieldError('phone','Telefon zorunludur'); valid=false; }
+  else if(phone.replace(/\D/g,'').length < 10){ setFieldError('phone','Geçerli bir telefon girin'); valid=false; }
+  else setFieldError('phone','');
+
+  return valid ? {company, contactName, email, phone} : null;
+}
+
+document.getElementById('contactSubmitBtn').addEventListener('click', async ()=>{
+  const errorBox = document.getElementById('contactErrorBox');
+  errorBox.style.display='none';
+  const data = validateContact();
+  if(!data) return;
+
+  const btn = document.getElementById('contactSubmitBtn');
+  btn.disabled = true;
+  btn.textContent = 'KAYDEDİLİYOR...';
+
+  if(sbClient){
+    try{
+      const { error } = await sbClient.from('verimlilik_basvurular').insert({
+        company_name: data.company,
+        contact_name: data.contactName,
+        email: data.email,
+        phone: data.phone,
+        overall_score: lastOverall,
+        level_name: getTierInfo(lastOverall).name,
+        isgucu_score: lastCatScores.isgucu,
+        surec_score: lastCatScores.surec,
+        uretim_score: lastCatScores.uretim,
+        stok_score: lastCatScores.stok,
+        enerji_score: lastCatScores.enerji,
+        zaman_score: lastCatScores.zaman,
+        answers: lastAnswers,
+        kvkk_consent: true
+      });
+      if(error){
+        console.error('Supabase kayıt hatası:', error);
+        errorBox.textContent = 'Kaydınız gönderilirken bir sorun oluştu. Lütfen tekrar deneyin.';
+        errorBox.style.display='block';
+        btn.disabled = false;
+        btn.textContent = 'Sonucumu Görüntüle →';
+        return;
+      }
+    } catch(e){
+      console.error('Supabase istemci hatası:', e);
+      errorBox.textContent = 'Kaydınız gönderilirken bir sorun oluştu. Lütfen tekrar deneyin.';
+      errorBox.style.display='block';
+      btn.disabled = false;
+      btn.textContent = 'Sonucumu Görüntüle →';
+      return;
+    }
+  } else {
+    console.warn('Supabase yapılandırılmadı — kayıt atlanıyor, sonuç yine de gösteriliyor.');
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Sonucumu Görüntüle →';
+  showResults(lastCatScores, lastOverall);
+});
 
 function renderGauge(score){
   const svg = document.getElementById('gaugeSvg');
@@ -371,14 +529,9 @@ function renderGauge(score){
 }
 
 function renderTier(score){
-  let title, desc;
-  if(score<30){title="Başlangıç Seviyesi"; desc="Kayıplar sistematik ve yaygın görünüyor. Öncelik: en düşük skorlu kategorilerde hızlı, düşük maliyetli önlemlerle başlamak.";}
-  else if(score<50){title="Gelişmekte";desc="Bazı alanlarda kontrol sağlanmış, ancak kayıplar üretim/maliyet üzerinde hâlâ belirgin etki yaratıyor.";}
-  else if(score<70){title="Yetkin";desc="Süreçlerin çoğu kontrol altında; hedefli iyileştirmelerle verimlilik önemli ölçüde artırılabilir.";}
-  else if(score<85){title="İleri Seviye";desc="Kayıplar büyük ölçüde kontrol altında. Kalan iyileştirme alanları ince ayar ve sürekli izleme gerektiriyor.";}
-  else {title="Mükemmellik";desc="Ölçülen boyutlarda kayıplar minimum düzeyde. Odak, mevcut performansı sürdürmeye ve öncü göstergelerle izlemeye kaymalı.";}
-  document.getElementById('tierTitle').textContent = title;
-  document.getElementById('tierDesc').textContent = desc;
+  const info = getTierInfo(score);
+  document.getElementById('tierTitle').textContent = info.name;
+  document.getElementById('tierDesc').textContent = info.desc;
 }
 
 function renderRadar(catScores){
